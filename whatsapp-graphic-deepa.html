@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="kn" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>ದೀಪ launch</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;700;800&family=Noto+Sans+Bengali:wght@700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1200px; height:630px; overflow:hidden; }
+  .canvas {
+    width:1200px; height:630px; position:relative; overflow:hidden;
+    background: radial-gradient(ellipse at 20% 15%, #1e3a4a 0%, #131f24 55%, #0d161a 100%);
+    color:#fff; font-family:'Noto Sans Kannada', sans-serif;
+    padding:60px 70px; display:flex; flex-direction:column; justify-content:center;
+  }
+  .new-badge {
+    position:absolute; top:52px; right:70px;
+    background:#ffd900; color:#131f24; font-weight:800;
+    font-size:24px; padding:8px 24px; border-radius:999px;
+    transform:rotate(3deg);
+  }
+  .eyebrow { font-size:22px; letter-spacing:1px; color:#9db2bd; }
+  .headline { font-size:88px; font-weight:800; line-height:1.12; margin:10px 0 6px; }
+  .headline .lamp { font-size:72px; }
+  .headline .name { color:#1cb0f6; }
+  .sub { font-size:34px; color:#bde3ff; font-weight:700; margin-bottom:26px; }
+  .chips { display:flex; gap:14px; flex-wrap:nowrap; max-width:760px; }
+  .chip {
+    background:rgba(255,255,255,.08); border:2px solid #2e414b;
+    border-radius:999px; padding:10px 22px; font-size:23px; white-space:nowrap;
+  }
+  .pair-stack {
+    position:absolute; right:70px; top:150px;
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .pair {
+    display:flex; align-items:center; gap:14px;
+    background:rgba(255,255,255,.07); border:2px solid #2e414b;
+    border-radius:18px; padding:10px 22px;
+  }
+  .pair .bn { font-family:'Noto Sans Bengali', sans-serif; font-size:36px; font-weight:700; color:#58cc02; }
+  .pair .ar { font-size:24px; color:#9db2bd; }
+  .pair .kn { font-size:34px; font-weight:700; color:#1cb0f6; }
+  .footer {
+    position:absolute; left:70px; right:70px; bottom:44px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .url {
+    background:#1cb0f6; color:#fff; font-weight:800;
+    font-size:26px; padding:12px 30px; border-radius:999px;
+    font-family:system-ui, sans-serif;
+  }
+  .free { font-size:26px; color:#9db2bd; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="new-badge">ಹೊಸದು!</div>
+    <div class="eyebrow">ಕನ್ನಡಿಗರಿಗಾಗಿ</div>
+    <div class="headline"><span class="lamp">🪔</span> <span class="name">ದೀಪ</span></div>
+    <div class="sub">ಈಗ ಕನ್ನಡದಲ್ಲೇ ಬೆಂಗಾಲಿ ಕಲಿಯಿರಿ</div>
+    <div class="chips">
+      <span class="chip">🔤 ಅಕ್ಷರ</span>
+      <span class="chip">💬 ದೈನಂದಿನ ವಾಕ್ಯ</span>
+      <span class="chip">🗣️ ಕೇಳಿ ಕಲಿಯಿರಿ</span>
+      <span class="chip">🎯 ಕ್ವಿಜ್</span>
+    </div>
+    <div class="pair-stack">
+      <div class="pair"><span class="bn">নমস্কার</span><span class="ar">=</span><span class="kn">ನೊಮೋಶ್ಕಾರ್</span></div>
+      <div class="pair"><span class="bn">ধন্যবাদ</span><span class="ar">=</span><span class="kn">ಧೊನ್ನೊಬಾದ್</span></div>
+      <div class="pair"><span class="bn">জল</span><span class="ar">=</span><span class="kn">ಜೊಲ್ (ನೀರು)</span></div>
+    </div>
+    <div class="footer">
+      <span class="free">೧೦೦% ಉಚಿತ · ಖಾತೆ ಬೇಕಿಲ್ಲ</span>
+      <span class="url">kannadaforbengalis.online/bengali/</span>
+    </div>
+  </div>
+</body>
+</html>
