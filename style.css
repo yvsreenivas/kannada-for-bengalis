@@ -33,7 +33,9 @@ body {
   color: var(--text);
   line-height: 1.5;
 }
+html[lang="kn"] body { font-family: "Noto Sans Kannada", "Noto Sans Bengali", system-ui, sans-serif; }
 [lang="kn"] { font-family: "Noto Sans Kannada", system-ui, sans-serif; }
+[lang="bn"] { font-family: "Noto Sans Bengali", system-ui, sans-serif; }
 
 main { max-width: 640px; margin: 0 auto; padding: 16px 16px 96px; }
 
@@ -44,6 +46,12 @@ header {
 }
 header h1 { margin: 0; font-size: 1.5rem; }
 header .tagline { color: var(--muted); margin: 4px 0 0; font-size: .95rem; }
+.switcher {
+  display: inline-block; margin-top: 10px;
+  font-size: .82rem; color: var(--blue); text-decoration: none;
+  border: 2px solid var(--border); border-radius: 999px; padding: 4px 14px;
+}
+.switcher:active { background: var(--card); }
 
 nav.bottom {
   position: fixed; bottom: 0; left: 0; right: 0;

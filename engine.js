@@ -1,14 +1,21 @@
-// Shared logic: TTS, progress, page rendering
+// Unified learning engine — direction-agnostic.
+// Reads window.CONFIG (per-direction strings/langs/storage) and window.DATA
+// (normalized: letters {id,target,equiv,pron,latin,note?}, phrases {id,target,pron,meaning,en},
+//  categories {id,label,icon,phrases}).
 (function () {
   "use strict";
 
+  var C = window.CONFIG;
+
   /* ---------- TTS ---------- */
-  var knVoice = null;
+  var voice = null;
   var ttsWarned = false;
 
   function pickVoice() {
     var voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
-    knVoice = voices.find(function (v) { return v.lang && v.lang.toLowerCase().indexOf("kn") === 0; }) || null;
+    voice = voices.find(function (v) {
+      return v.lang && v.lang.toLowerCase().indexOf(C.ttsPrefix) === 0;
+    }) || null;
   }
   if (window.speechSynthesis) {
     pickVoice();
@@ -30,31 +37,30 @@
 
   function speak(text) {
     if (!window.speechSynthesis) {
-      toast("এই ব্রাউজারে ভয়েস সাপোর্ট নেই। Chrome ব্যবহার করে দেখুন।");
+      toast(C.strings.noTts);
       return;
     }
-    if (!knVoice) pickVoice();
+    if (!voice) pickVoice();
     var u = new SpeechSynthesisUtterance(text);
-    u.lang = "kn-IN";
+    u.lang = C.ttsLang;
     u.rate = 0.85;
-    if (knVoice) {
-      u.voice = knVoice;
+    if (voice) {
+      u.voice = voice;
     } else if (!ttsWarned) {
       ttsWarned = true;
-      toast("এই ডিভাইসে কন্নড় ভয়েস নেই — মোবাইলে Chrome-এ সবচেয়ে ভালো শোনা যায়।");
+      toast(C.strings.noVoice);
     }
     speechSynthesis.cancel();
     speechSynthesis.speak(u);
   }
 
   /* ---------- Progress (localStorage) ---------- */
-  var KEY = "kfb-progress";
   function loadProgress() {
-    try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+    try { return JSON.parse(localStorage.getItem(C.storageKey)) || {}; }
     catch (e) { return {}; }
   }
   function saveProgress(p) {
-    try { localStorage.setItem(KEY, JSON.stringify(p)); } catch (e) { /* private mode */ }
+    try { localStorage.setItem(C.storageKey, JSON.stringify(p)); } catch (e) { /* private mode */ }
   }
   function markSeen(id) {
     var p = loadProgress();
@@ -73,9 +79,9 @@
     return DATA.vowels.concat(DATA.yogavaha, DATA.consonants);
   }
 
-  /* Bengali digits */
-  function bnNum(n) {
-    return String(n).replace(/\d/g, function (d) { return "০১২৩৪৫৬৭৮৯"[d]; });
+  /* Native digits */
+  function num(n) {
+    return String(n).replace(/\d/g, function (d) { return C.digits[d]; });
   }
 
   /* ---------- Rendering ---------- */
@@ -95,13 +101,13 @@
     var card = el("button", "letter-card" + (isSeen(item.id) ? " seen" : ""));
     card.type = "button";
     card.innerHTML =
-      '<span class="kn-letter" lang="kn">' + esc(item.kn) + "</span>" +
-      '<span class="bn-equiv" lang="bn">' + esc(item.bnEquiv) + "</span>" +
-      '<span class="bn-pron" lang="bn">' + esc(item.bnPron) + "</span>" +
+      '<span class="kn-letter" lang="' + C.targetLang + '">' + esc(item.target) + "</span>" +
+      '<span class="bn-equiv" lang="' + C.uiLang + '">' + esc(item.equiv) + "</span>" +
+      '<span class="bn-pron" lang="' + C.uiLang + '">' + esc(item.pron) + "</span>" +
       '<span class="latin">' + esc(item.latin) + "</span>" +
-      (item.note ? '<span class="note" lang="bn">' + esc(item.note) + "</span>" : "");
+      (item.note ? '<span class="note" lang="' + C.uiLang + '">' + esc(item.note) + "</span>" : "");
     card.addEventListener("click", function () {
-      speak(item.kn);
+      speak(item.target);
       markSeen(item.id);
       card.classList.add("seen");
     });
@@ -112,14 +118,14 @@
     var row = el("div", "phrase-row" + (isSeen(ph.id) ? " seen" : ""));
     row.innerHTML =
       '<div class="phrase-text">' +
-      '<div class="kn-phrase" lang="kn">' + esc(ph.kn) + "</div>" +
-      '<div class="bn-pron" lang="bn">🗣️ ' + esc(ph.bnPron) + "</div>" +
-      '<div class="bn-meaning" lang="bn">' + esc(ph.bnMeaning) +
+      '<div class="kn-phrase" lang="' + C.targetLang + '">' + esc(ph.target) + "</div>" +
+      '<div class="bn-pron" lang="' + C.uiLang + '">🗣️ ' + esc(ph.pron) + "</div>" +
+      '<div class="bn-meaning" lang="' + C.uiLang + '">' + esc(ph.meaning) +
       ' <span class="en">(' + esc(ph.en) + ")</span></div>" +
       "</div>" +
-      '<button type="button" class="speak-btn" aria-label="শুনুন">🔊</button>';
+      '<button type="button" class="speak-btn" aria-label="' + esc(C.strings.listen) + '">🔊</button>';
     row.querySelector(".speak-btn").addEventListener("click", function () {
-      speak(ph.kn);
+      speak(ph.target);
       markSeen(ph.id);
       row.classList.add("seen");
     });
@@ -130,12 +136,11 @@
     var root = document.getElementById("letters-root");
     if (!root) return;
     [
-      { title: "স্বরবর্ণ (ಸ್ವರ)", items: DATA.vowels, hint: "কার্ডে চাপ দিলে উচ্চারণ শুনতে পাবেন" },
-      { title: "অনুস্বার ও বিসর্গ", items: DATA.yogavaha },
-      { title: "ব্যঞ্জনবর্ণ (ವ್ಯಂಜನ)", items: DATA.consonants }
+      { title: C.strings.vowelsTitle, items: DATA.vowels, hint: C.strings.lettersHint },
+      { title: C.strings.yogavahaTitle, items: DATA.yogavaha },
+      { title: C.strings.consonantsTitle, items: DATA.consonants }
     ].forEach(function (sec) {
-      var h = el("h2", "section-title", esc(sec.title));
-      root.appendChild(h);
+      root.appendChild(el("h2", "section-title", esc(sec.title)));
       if (sec.hint) root.appendChild(el("p", "hint", esc(sec.hint)));
       var grid = el("div", "letter-grid");
       sec.items.forEach(function (it) { grid.appendChild(letterCard(it)); });
@@ -151,9 +156,9 @@
       if (cat.id === "greetings") details.open = true;
       var learned = seenCount(cat.phrases);
       details.innerHTML =
-        "<summary><span class='cat-icon'>" + cat.icon + "</span> <span lang='bn'>" +
-        esc(cat.bn) + "</span> <span class='cat-count'>" +
-        bnNum(learned) + "/" + bnNum(cat.phrases.length) + "</span></summary>";
+        "<summary><span class='cat-icon'>" + cat.icon + "</span> <span lang='" + C.uiLang + "'>" +
+        esc(cat.label) + "</span> <span class='cat-count'>" +
+        num(learned) + "/" + num(cat.phrases.length) + "</span></summary>";
       var list = el("div", "phrase-list");
       cat.phrases.forEach(function (ph) { list.appendChild(phraseRow(ph)); });
       details.appendChild(list);
@@ -174,12 +179,11 @@
     var root = document.getElementById("practice-root");
     if (!root) return;
     var pool = allPhrases();
-    var mode = "quiz"; // or "cards"
     var qIndex = 0, score = 0, order = shuffle(pool.slice());
 
     var tabs = el("div", "tabs");
-    var tabQuiz = el("button", "tab active", "কুইজ");
-    var tabCards = el("button", "tab", "ফ্ল্যাশকার্ড");
+    var tabQuiz = el("button", "tab active", esc(C.strings.quizTab));
+    var tabCards = el("button", "tab", esc(C.strings.cardsTab));
     tabQuiz.type = tabCards.type = "button";
     tabs.appendChild(tabQuiz); tabs.appendChild(tabCards);
     root.appendChild(tabs);
@@ -187,18 +191,19 @@
     root.appendChild(stage);
 
     tabQuiz.addEventListener("click", function () {
-      mode = "quiz"; tabQuiz.classList.add("active"); tabCards.classList.remove("active"); drawQuiz();
+      tabQuiz.classList.add("active"); tabCards.classList.remove("active"); drawQuiz();
     });
     tabCards.addEventListener("click", function () {
-      mode = "cards"; tabCards.classList.add("active"); tabQuiz.classList.remove("active"); drawCard();
+      tabCards.classList.add("active"); tabQuiz.classList.remove("active"); drawCard();
     });
 
     function drawQuiz() {
       stage.innerHTML = "";
       if (qIndex >= 10 || qIndex >= order.length) {
         stage.appendChild(el("div", "quiz-done",
-          "<div class='big'>🎉</div><p lang='bn'>স্কোর: " + bnNum(score) + "/" + bnNum(qIndex) +
-          "</p><button type='button' class='btn primary' id='again'>আবার খেলুন</button>"));
+          "<div class='big'>🎉</div><p lang='" + C.uiLang + "'>" + esc(C.strings.score) + ": " +
+          num(score) + "/" + num(qIndex) +
+          "</p><button type='button' class='btn primary' id='again'>" + esc(C.strings.playAgain) + "</button>"));
         stage.querySelector("#again").addEventListener("click", function () {
           qIndex = 0; score = 0; order = shuffle(pool.slice()); drawQuiz();
         });
@@ -209,19 +214,19 @@
         shuffle(pool.filter(function (p) { return p.id !== answer.id; })).slice(0, 3)
       ));
       var q = el("div", "quiz");
-      q.appendChild(el("p", "quiz-progress", bnNum(qIndex + 1) + "/" + bnNum(Math.min(10, order.length))));
+      q.appendChild(el("p", "quiz-progress", num(qIndex + 1) + "/" + num(Math.min(10, order.length))));
       var prompt = el("div", "quiz-prompt");
-      prompt.innerHTML = "<span lang='kn'>" + esc(answer.kn) + "</span>" +
-        "<button type='button' class='speak-btn' aria-label='শুনুন'>🔊</button>";
-      prompt.querySelector(".speak-btn").addEventListener("click", function () { speak(answer.kn); });
+      prompt.innerHTML = "<span lang='" + C.targetLang + "'>" + esc(answer.target) + "</span>" +
+        "<button type='button' class='speak-btn' aria-label='" + esc(C.strings.listen) + "'>🔊</button>";
+      prompt.querySelector(".speak-btn").addEventListener("click", function () { speak(answer.target); });
       q.appendChild(prompt);
-      q.appendChild(el("p", "quiz-q", "এর মানে কী?"));
+      q.appendChild(el("p", "quiz-q", esc(C.strings.quizQuestion)));
       var opts = el("div", "quiz-options");
       options.forEach(function (opt) {
         var b = el("button", "btn option");
         b.type = "button";
-        b.setAttribute("lang", "bn");
-        b.textContent = opt.bnMeaning;
+        b.setAttribute("lang", C.uiLang);
+        b.textContent = opt.meaning;
         b.addEventListener("click", function () {
           if (b.disabled) return;
           var correct = opt.id === answer.id;
@@ -229,7 +234,7 @@
           if (correct) { score++; markSeen(answer.id); }
           else {
             opts.querySelectorAll(".option").forEach(function (o) {
-              if (o.textContent === answer.bnMeaning) o.classList.add("correct");
+              if (o.textContent === answer.meaning) o.classList.add("correct");
             });
           }
           opts.querySelectorAll(".option").forEach(function (o) { o.disabled = true; });
@@ -247,22 +252,22 @@
       var ph = cardOrder[cardIdx % cardOrder.length];
       var card = el("div", "flashcard");
       card.innerHTML =
-        "<div class='fc-front' lang='kn'>" + esc(ph.kn) + "</div>" +
+        "<div class='fc-front' lang='" + C.targetLang + "'>" + esc(ph.target) + "</div>" +
         "<div class='fc-back hiddenpart'>" +
-        "<div class='bn-pron' lang='bn'>🗣️ " + esc(ph.bnPron) + "</div>" +
-        "<div class='bn-meaning' lang='bn'>" + esc(ph.bnMeaning) + "</div>" +
+        "<div class='bn-pron' lang='" + C.uiLang + "'>🗣️ " + esc(ph.pron) + "</div>" +
+        "<div class='bn-meaning' lang='" + C.uiLang + "'>" + esc(ph.meaning) + "</div>" +
         "<div class='en'>" + esc(ph.en) + "</div></div>" +
-        "<p class='hint' lang='bn'>কার্ডে চাপ দিন — মানে দেখুন</p>";
+        "<p class='hint' lang='" + C.uiLang + "'>" + esc(C.strings.cardHint) + "</p>";
       card.addEventListener("click", function () {
         card.querySelector(".fc-back").classList.remove("hiddenpart");
         card.querySelector(".hint").textContent = "";
         markSeen(ph.id);
       });
       var controls = el("div", "fc-controls");
-      var hear = el("button", "btn", "🔊 শুনুন");
-      var next = el("button", "btn primary", "পরের কার্ড →");
+      var hear = el("button", "btn", "🔊 " + esc(C.strings.listen));
+      var next = el("button", "btn primary", esc(C.strings.nextCard));
       hear.type = next.type = "button";
-      hear.addEventListener("click", function (e) { e.stopPropagation(); speak(ph.kn); });
+      hear.addEventListener("click", function (e) { e.stopPropagation(); speak(ph.target); });
       next.addEventListener("click", function () { cardIdx++; drawCard(); });
       controls.appendChild(hear); controls.appendChild(next);
       stage.appendChild(card);
@@ -280,10 +285,10 @@
     var phrases = allPhrases();
     var lc = seenCount(letters), pc = seenCount(phrases);
     root.innerHTML =
-      "<div class='stat'><span class='stat-num'>" + bnNum(lc) + "/" + bnNum(letters.length) +
-      "</span><span class='stat-label' lang='bn'>অক্ষর শেখা</span></div>" +
-      "<div class='stat'><span class='stat-num'>" + bnNum(pc) + "/" + bnNum(phrases.length) +
-      "</span><span class='stat-label' lang='bn'>বাক্য শেখা</span></div>";
+      "<div class='stat'><span class='stat-num'>" + num(lc) + "/" + num(letters.length) +
+      "</span><span class='stat-label' lang='" + C.uiLang + "'>" + esc(C.strings.lettersStat) + "</span></div>" +
+      "<div class='stat'><span class='stat-num'>" + num(pc) + "/" + num(phrases.length) +
+      "</span><span class='stat-label' lang='" + C.uiLang + "'>" + esc(C.strings.phrasesStat) + "</span></div>";
   }
 
   /* ---------- boot ---------- */
