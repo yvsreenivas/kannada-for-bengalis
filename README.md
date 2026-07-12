@@ -1,13 +1,13 @@
-# দীপা / ದೀಪ (Dipa / Deepa) — Kannada ↔ Bengali, both directions
+# DipaMoy — Kannada ↔ Bengali, both directions
 
-*Dipa/Deepa* (দীপা / ದೀಪ) means "lamp" in both Bengali and Kannada.
+*DipaMoy* builds on দীপা/ದೀಪ ("Dipa" — lamp in both Bengali and Kannada) with the Bengali suffix "-moy" (ময়, "full of") — "full of light."
 
 **Live at [kannadaforbengalis.online](https://kannadaforbengalis.online)** (Bengali → Kannada) and **[kannadaforbengalis.online/bengali/](https://kannadaforbengalis.online/bengali/)** (Kannada → Bengali)
 
 A Duolingo-inspired static web app, bidirectional, from one codebase:
 
-- **`/`** — Dipa (দীপা) — Bengali speakers learn **Kannada** (Bengali UI, Bengali-script pronunciation, `kn-IN` TTS)
-- **`/bengali/`** — Deepa (ದೀಪ) — Kannada speakers learn **Bengali** (Kannada UI, Kannada-script pronunciation, `bn-IN` TTS)
+- **`/`** — Bengali speakers learn **Kannada** (Bengali UI, Bengali-script pronunciation, `kn-IN` TTS)
+- **`/bengali/`** — Kannada speakers learn **Bengali** (Kannada UI, Kannada-script pronunciation, `bn-IN` TTS)
 
 Each direction has:
 
@@ -24,8 +24,8 @@ Full behavior spec: **[fsd.md](fsd.md)**
 One shared engine ([engine.js](engine.js)), used by both directions, parameterized by a per-direction `config.js` (UI strings, TTS language, storage key, digit script) and a per-direction `data.js` with a normalized shape: letters `{target, equiv, pron, latin, note?}`, phrases `{target, pron, meaning, en}`.
 
 ```
-/            → Dipa: config.js, data.js, index/letters/phrases/practice.html
-/bengali/    → Deepa: config.js, data.js, index/letters/phrases/practice.html
+/            → Bengali → Kannada: config.js, data.js, index/letters/phrases/practice.html
+/bengali/    → Kannada → Bengali: config.js, data.js, index/letters/phrases/practice.html
 engine.js    → shared by both, direction-agnostic
 style.css    → shared by both
 ```
@@ -42,7 +42,7 @@ Serve the folder with any static server, e.g.:
 npx serve .
 ```
 
-Then visit `/` for Dipa or `/bengali/` for Deepa.
+Then visit `/` for the Bengali→Kannada direction or `/bengali/` for Kannada→Bengali.
 
 ## Content
 

@@ -1,6 +1,6 @@
-# Dipa / Deepa — Functional Specification Document (FSD)
+# DipaMoy — Functional Specification Document (FSD)
 
-**Product:** দীপা / ದೀಪ (Dipa / Deepa) — "lamp" in both Bengali and Kannada
+**Product:** DipaMoy — built on দীপা/ದೀಪ ("Dipa," lamp in both Bengali and Kannada) plus the Bengali suffix "-moy" (ময়, "full of")
 **Live site:** https://kannadaforbengalis.online/ (Bengali → Kannada) and https://kannadaforbengalis.online/bengali/ (Kannada → Bengali)
 **Type:** Client-side static web app (no backend)
 **Status:** Live
@@ -9,10 +9,10 @@
 
 ## 1. Overview
 
-A Duolingo-inspired language-learning app, **bidirectional** between Kannada and Bengali — two related Brahmic scripts spoken by large, overlapping migrant communities (Bengalis living in Karnataka, and vice versa). One codebase serves two learner-facing identities from the same domain:
+A Duolingo-inspired language-learning app, **bidirectional** between Kannada and Bengali — two related Brahmic scripts spoken by large, overlapping migrant communities (Bengalis living in Karnataka, and vice versa). One codebase, one brand (**DipaMoy**), serves two learner-facing directions from the same domain:
 
-- **`/`** — **Dipa (দীপা)** — Bengali-speaking UI, teaches **Kannada**. Pronunciation shown in Bengali script, TTS in `kn-IN`.
-- **`/bengali/`** — **Deepa (ದೀಪ)** — Kannada-speaking UI, teaches **Bengali**. Pronunciation shown in Kannada script, TTS in `bn-IN`.
+- **`/`** — Bengali-speaking UI, teaches **Kannada**. Pronunciation shown in Bengali script, TTS in `kn-IN`.
+- **`/bengali/`** — Kannada-speaking UI, teaches **Bengali**. Pronunciation shown in Kannada script, TTS in `bn-IN`.
 
 The app is fully client-side: static HTML pages, one shared stylesheet, one shared JS engine, and per-direction data/config files. There is no server, database, or login. Progress is stored in the browser via `localStorage`, keyed separately per direction so the two learner populations never collide.
 
