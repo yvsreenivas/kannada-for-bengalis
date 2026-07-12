@@ -2,6 +2,8 @@
 
 *Dipa* (দীপা / ದೀಪ) means "lamp" in both Bengali and Kannada.
 
+**Live at [kannadaforbengalis.online](https://kannadaforbengalis.online)**
+
 A Duolingo-inspired static web app that helps Bengali speakers learn Kannada:
 
 - **অক্ষর (Letters)** — Kannada vowels & consonants side-by-side with their closest Bengali letters and Bengali-script pronunciation
