@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="bn" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>দীপা launch — square</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700;800&family=Noto+Sans+Kannada:wght@700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1080px; overflow:hidden; }
+  .canvas {
+    width:1080px; height:1080px; position:relative; overflow:hidden;
+    background: radial-gradient(ellipse at 25% 10%, #2a4a1e 0%, #131f24 55%, #0d161a 100%);
+    color:#fff; font-family:'Noto Sans Bengali', sans-serif;
+    padding:70px; display:flex; flex-direction:column; align-items:center;
+    text-align:center;
+  }
+  .new-badge {
+    position:absolute; top:64px; right:70px;
+    background:#ffd900; color:#131f24; font-weight:800;
+    font-size:26px; padding:10px 28px; border-radius:999px;
+    transform:rotate(4deg);
+  }
+  .eyebrow { font-size:28px; letter-spacing:2px; color:#9db2bd; margin-top:40px; }
+  .headline { font-size:120px; font-weight:800; line-height:1.15; margin:6px 0 2px; }
+  .headline .lamp { font-size:96px; }
+  .headline .name { color:#58cc02; }
+  .sub { font-size:42px; color:#d7ffb8; font-weight:700; margin-bottom:44px; }
+  .pair-stack { display:flex; flex-direction:column; gap:20px; margin-bottom:48px; }
+  .pair {
+    display:flex; align-items:center; justify-content:center; gap:20px;
+    background:rgba(255,255,255,.07); border:2px solid #2e414b;
+    border-radius:22px; padding:16px 44px; min-width:620px;
+  }
+  .pair .bn { font-size:48px; font-weight:700; color:#1cb0f6; }
+  .pair .ar { font-size:30px; color:#9db2bd; }
+  .pair .kn { font-family:'Noto Sans Kannada', sans-serif; font-size:48px; font-weight:700; color:#58cc02; }
+  .chips { display:flex; gap:14px; flex-wrap:nowrap; justify-content:center; }
+  .chip {
+    background:rgba(255,255,255,.08); border:2px solid #2e414b;
+    border-radius:999px; padding:10px 22px; font-size:26px;
+    white-space:nowrap;
+  }
+  .footer {
+    position:absolute; left:70px; right:70px; bottom:60px;
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+  }
+  .url {
+    background:#58cc02; color:#fff; font-weight:800;
+    font-size:34px; padding:16px 44px; border-radius:999px;
+    font-family:system-ui, sans-serif;
+  }
+  .free { font-size:28px; color:#9db2bd; }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="new-badge">নতুন!</div>
+    <div class="eyebrow">বাঙালিদের জন্য</div>
+    <div class="headline"><span class="lamp">🪔</span> <span class="name">দীপা</span></div>
+    <div class="sub">এবার কন্নড় শিখুন — বাংলায়</div>
+    <div class="pair-stack">
+      <div class="pair"><span class="bn">নমস্কার</span><span class="ar">→</span><span class="kn">ನಮಸ್ಕಾರ</span></div>
+      <div class="pair"><span class="bn">কত?</span><span class="ar">→</span><span class="kn">ಎಷ್ಟು?</span></div>
+      <div class="pair"><span class="bn">ধন্যবাদ</span><span class="ar">→</span><span class="kn">ಧನ್ಯವಾದ</span></div>
+    </div>
+    <div class="chips">
+      <span class="chip">🔤 অক্ষর</span>
+      <span class="chip">💬 রোজকার বাক্য</span>
+      <span class="chip">🗣️ উচ্চারণ শুনুন</span>
+      <span class="chip">🎯 কুইজ</span>
+    </div>
+    <div class="footer">
+      <span class="free">১০০% ফ্রি · অ্যাকাউন্ট লাগে না</span>
+      <span class="url">kannadaforbengalis.online</span>
+    </div>
+  </div>
+</body>
+</html>
