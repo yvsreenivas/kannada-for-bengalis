@@ -1,4 +1,6 @@
-# কন্নড় শিখুন — Learn Kannada for Bengalis
+# দীপা (Dipa) — Learn Kannada for Bengalis
+
+*Dipa* (দীপা / ದೀಪ) means "lamp" in both Bengali and Kannada.
 
 A Duolingo-inspired static web app that helps Bengali speakers learn Kannada:
 
