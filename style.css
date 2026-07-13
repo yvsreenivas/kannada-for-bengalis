@@ -54,6 +54,17 @@ header .tagline { color: var(--muted); margin: 4px 0 0; font-size: .95rem; }
   border: 2px solid var(--border); border-radius: 999px; padding: 4px 14px;
 }
 .switcher:active { background: var(--card); }
+.lang-switcher {
+  display: inline-block; margin-top: 10px; max-width: 90%;
+  font-family: inherit; font-size: .82rem; color: var(--blue);
+  background-color: transparent;
+  border: 2px solid var(--border); border-radius: 999px;
+  padding: 5px 32px 5px 14px; cursor: pointer;
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+.lang-switcher:focus { outline: none; border-color: var(--blue); }
 
 nav.bottom {
   position: fixed; bottom: 0; left: 0; right: 0;

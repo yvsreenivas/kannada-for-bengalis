@@ -277,6 +277,51 @@
     drawQuiz();
   }
 
+  /* ---------- Language chooser ---------- */
+  // All learning directions in the app. `base` is the folder; every direction
+  // has the same four page files (index/letters/phrases/practice.html).
+  var DIRECTIONS = [
+    { base: "/",           label: "বাংলা → ಕನ್ನಡ",   lang: "bn" },
+    { base: "/bengali/",   label: "ಕನ್ನಡ → বাংলা",   lang: "kn" },
+    { base: "/malayalam/", label: "ಕನ್ನಡ → മലയാളം", lang: "kn" },
+    { base: "/kannada/",   label: "മലയാളം → ಕನ್ನಡ", lang: "ml" }
+  ];
+
+  function currentBase() {
+    var p = location.pathname;
+    if (p.indexOf("/bengali/") !== -1) return "/bengali/";
+    if (p.indexOf("/malayalam/") !== -1) return "/malayalam/";
+    if (p.indexOf("/kannada/") !== -1) return "/kannada/";
+    return "/";
+  }
+  function currentFile() {
+    var seg = location.pathname.split("/").pop();
+    return /\.html$/.test(seg) ? seg : "index.html";
+  }
+
+  function renderSwitcher() {
+    var file = currentFile(), base = currentBase();
+    var sel = document.createElement("select");
+    sel.className = "lang-switcher";
+    sel.setAttribute("aria-label", "ভাষা / ಭಾಷೆ / ഭാഷ");
+    DIRECTIONS.forEach(function (d) {
+      var o = document.createElement("option");
+      o.value = d.base + file;
+      o.textContent = d.label;
+      o.setAttribute("lang", d.lang);
+      if (d.base === base) o.selected = true;
+      sel.appendChild(o);
+    });
+    sel.addEventListener("change", function () {
+      if (sel.value) location.href = sel.value;
+    });
+    // Replace the static switcher pill if present, otherwise add to the header.
+    var old = document.querySelector(".switcher");
+    if (old) { old.parentNode.replaceChild(sel, old); return; }
+    var header = document.querySelector("header");
+    if (header) header.appendChild(sel);
+  }
+
   /* ---------- Home ---------- */
   function renderHome() {
     var root = document.getElementById("home-progress");
@@ -293,6 +338,7 @@
 
   /* ---------- boot ---------- */
   document.addEventListener("DOMContentLoaded", function () {
+    renderSwitcher();
     renderHome();
     renderLetters();
     renderPhrases();
