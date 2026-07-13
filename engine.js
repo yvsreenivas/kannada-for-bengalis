@@ -281,16 +281,20 @@
   // All learning directions in the app. `base` is the folder; every direction
   // has the same four page files (index/letters/phrases/practice.html).
   var DIRECTIONS = [
-    { base: "/",           label: "বাংলা → ಕನ್ನಡ",   lang: "bn" },
-    { base: "/bengali/",   label: "ಕನ್ನಡ → বাংলা",   lang: "kn" },
-    { base: "/malayalam/", label: "ಕನ್ನಡ → മലയാളം", lang: "kn" },
-    { base: "/kannada/",   label: "മലയാളം → ಕನ್ನಡ", lang: "ml" }
+    { base: "/",                label: "বাংলা → ಕನ್ನಡ",   lang: "bn" },
+    { base: "/bengali/",        label: "ಕನ್ನಡ → বাংলা",   lang: "kn" },
+    { base: "/malayalam/",      label: "ಕನ್ನಡ → മലയാളം", lang: "kn" },
+    { base: "/kannada/",        label: "മലയാളം → ಕನ್ನಡ", lang: "ml" },
+    { base: "/konkani/",        label: "ಕನ್ನಡ → कोंकणी",  lang: "kn" },
+    { base: "/kannada-konkani/", label: "कोंकणी → ಕನ್ನಡ", lang: "kok" }
   ];
 
   function currentBase() {
     var p = location.pathname;
     if (p.indexOf("/bengali/") !== -1) return "/bengali/";
     if (p.indexOf("/malayalam/") !== -1) return "/malayalam/";
+    if (p.indexOf("/kannada-konkani/") !== -1) return "/kannada-konkani/";
+    if (p.indexOf("/konkani/") !== -1) return "/konkani/";
     if (p.indexOf("/kannada/") !== -1) return "/kannada/";
     return "/";
   }
