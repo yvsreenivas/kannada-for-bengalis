@@ -16,7 +16,7 @@ Copy-paste below into WhatsApp (formatting renders automatically):
 _ಗೊತ್ತಾ? ಕನ್ನಡ ಮತ್ತು ಬೆಂಗಾಲಿ ಎರಡೂ ಬ್ರಾಹ್ಮಿ ಲಿಪಿಯಿಂದ ಬಂದವು — ಹೋಲಿಸಿ ನೋಡಿದರೆ ಆಶ್ಚರ್ಯವಾಗುತ್ತದೆ!_
 
 ಇಲ್ಲಿ ಶುರು ಮಾಡಿ 👇
-https://kannadaforbengalis.online/bengali/
+https://dipamoy.site/bengali/
 
 *ಬೆಂಗಾಲಿ ಗೆಳೆಯರಿರುವವರಿಗೆ ಫಾರ್ವರ್ಡ್ ಮಾಡಿ 🙏*
 

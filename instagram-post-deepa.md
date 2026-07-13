@@ -20,7 +20,7 @@
 
 "ಭಾಷೆ ಕಲಿತರೆ ಸಂಸ್ಕೃತಿಯೇ ಹತ್ತಿರವಾಗುತ್ತದೆ."
 
-🔗 kannadaforbengalis.online/bengali/ (ಲಿಂಕ್ ಬಯೋದಲ್ಲಿ)
+🔗 dipamoy.site/bengali/ (ಲಿಂಕ್ ಬಯೋದಲ್ಲಿ)
 ಬೆಂಗಾಲಿ ಗೆಳೆಯರಿರುವವರನ್ನು ಟ್ಯಾಗ್ ಮಾಡಿ 🙏
 
 ## Hashtags

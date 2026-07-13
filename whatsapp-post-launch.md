@@ -18,7 +18,7 @@ Copy-paste below into WhatsApp (formatting renders automatically):
 কোনো অ্যাকাউন্ট লাগবে না, ফোনেই চলে 📱
 
 শুরু করুন এখানে 👇
-https://kannadaforbengalis.online
+https://dipamoy.site
 
 *কাজে লাগবে এমন কাউকে ফরওয়ার্ড করুন 🙏*
 

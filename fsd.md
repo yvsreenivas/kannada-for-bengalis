@@ -1,7 +1,7 @@
 # DipaMoy — Functional Specification Document (FSD)
 
 **Product:** DipaMoy — built on দীপা/ದೀಪ ("Dipa," lamp in both Bengali and Kannada) plus the Bengali suffix "-moy" (ময়, "full of")
-**Live site:** https://kannadaforbengalis.online/ (Bengali → Kannada) and https://kannadaforbengalis.online/bengali/ (Kannada → Bengali)
+**Live site:** https://dipamoy.site/ (Bengali → Kannada) and https://dipamoy.site/bengali/ (Kannada → Bengali)
 **Type:** Client-side static web app (no backend)
 **Status:** Live
 
@@ -49,7 +49,7 @@ The app is fully client-side: static HTML pages, one shared stylesheet, one shar
 | Audio | Web Speech API (`speechSynthesis`), voice picked by `lang` prefix (`kn`/`bn`), rate 0.85 |
 | Fonts | Google Fonts — Noto Sans Bengali, Noto Sans Kannada |
 | Persistence | Browser `localStorage`, two independent keys (`kfb-progress`, `bfk-progress`) |
-| Hosting | Vercel (static), domain `kannadaforbengalis.online` via Cloudflare DNS (grey-cloud → Vercel A/CNAME) |
+| Hosting | Vercel (static), domain `dipamoy.site` via Cloudflare DNS (grey-cloud → Vercel A/CNAME) |
 
 No external runtime dependencies beyond Google Fonts; the app loads and runs without a build step. Chrome's automatic translation prompt is suppressed via `translate="no"` on `<html>` and `<meta name="google" content="notranslate">` on every page — critical here because auto-translating a language-learning page would garble the very content being taught.
 
@@ -171,7 +171,7 @@ Every user-facing string, language tag, TTS parameter, and storage key is source
 - **NFR-4** `translate="no"` + `<meta name="google" content="notranslate">` on every page prevents Chrome's auto-translate prompt from mangling the bilingual teaching content (see §3).
 
 ### 7.4 SEO & sharing
-- **NFR-5** Each of the 8 pages has a descriptive, direction-appropriate `<title>`/meta description and a canonical URL under `https://kannadaforbengalis.online/`.
+- **NFR-5** Each of the 8 pages has a descriptive, direction-appropriate `<title>`/meta description and a canonical URL under `https://dipamoy.site/`.
 - **NFR-6** The homepage (`/`) additionally carries Open Graph + Twitter Card tags pointing at a shared 1200×630 `og-image.png` (bilingual branded card, generated via headless Chrome from `og-image.html`).
 - **NFR-7** `sitemap.xml` lists all 8 URLs (4 per direction); `robots.txt` allows all crawling and references the sitemap. Both directions are independently indexable.
 - **NFR-8** Google Search Console verification is via a Cloudflare DNS TXT record on the domain (no file upload / meta-tag needed) — see repo memory notes for the verification value location.
@@ -206,5 +206,5 @@ Every user-facing string, language tag, TTS parameter, and storage key is source
 
 - **Repo:** [github.com/yvsreenivas/kannada-for-bengalis](https://github.com/yvsreenivas/kannada-for-bengalis) (public), single repo for both directions.
 - **Hosting:** Vercel, connected via GitHub integration — every push to `main` auto-deploys.
-- **Domain:** `kannadaforbengalis.online` (Namecheap registrar) → Cloudflare DNS (nameservers delegated from Namecheap) → Vercel via grey-cloud (DNS-only) A/CNAME records, so Vercel issues and manages its own SSL certificate.
+- **Domain:** `dipamoy.site` (Namecheap registrar) → Cloudflare DNS (nameservers delegated from Namecheap) → Vercel via grey-cloud (DNS-only) A/CNAME records, so Vercel issues and manages its own SSL certificate.
 - **Local dev:** any static file server, e.g. `npx serve .` or `python -m http.server`; no build step for either directory.

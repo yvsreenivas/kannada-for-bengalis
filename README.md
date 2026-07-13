@@ -2,7 +2,7 @@
 
 *DipaMoy* builds on দীপা/ದೀಪ ("Dipa" — lamp in both Bengali and Kannada) with the Bengali suffix "-moy" (ময়, "full of") — "full of light."
 
-**Live at [kannadaforbengalis.online](https://kannadaforbengalis.online)** (Bengali → Kannada) and **[kannadaforbengalis.online/bengali/](https://kannadaforbengalis.online/bengali/)** (Kannada → Bengali)
+**Live at [dipamoy.site](https://dipamoy.site)** (Bengali → Kannada) and **[dipamoy.site/bengali/](https://dipamoy.site/bengali/)** (Kannada → Bengali)
 
 A Duolingo-inspired static web app, bidirectional, from one codebase:
 

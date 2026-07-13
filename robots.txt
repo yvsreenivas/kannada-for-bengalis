@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kannadaforbengalis.online/sitemap.xml
+Sitemap: https://dipamoy.site/sitemap.xml
