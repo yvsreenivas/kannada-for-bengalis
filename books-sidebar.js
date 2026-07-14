@@ -116,7 +116,15 @@ const BOOKS_DATA = {
 };
 
 function renderBooksSidebar() {
-  const dir = currentBase();
+  // Determine current direction from pathname
+  const p = location.pathname;
+  let dir = '/';
+  if (p.indexOf('/bengali/') !== -1) dir = 'bengali';
+  else if (p.indexOf('/malayalam/') !== -1) dir = 'malayalam';
+  else if (p.indexOf('/kannada-konkani/') !== -1) dir = 'kannada-konkani';
+  else if (p.indexOf('/konkani/') !== -1) dir = 'konkani';
+  else if (p.indexOf('/kannada/') !== -1) dir = 'kannada';
+
   const bookData = BOOKS_DATA[dir];
 
   if (!bookData) return '';
