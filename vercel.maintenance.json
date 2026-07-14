@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/((?!maintenance\\.html|favicon\\.svg).*)", "destination": "/maintenance.html" }
+    { "source": "/:path(.*)", "destination": "/maintenance.html" }
   ]
 }
