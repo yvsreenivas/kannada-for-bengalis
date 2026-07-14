@@ -118,7 +118,7 @@ const BOOKS_DATA = {
 function renderBooksSidebar() {
   // Determine current direction from pathname
   const p = location.pathname;
-  let dir = '/';
+  let dir = '';
   if (p.indexOf('/bengali/') !== -1) dir = 'bengali';
   else if (p.indexOf('/malayalam/') !== -1) dir = 'malayalam';
   else if (p.indexOf('/kannada-konkani/') !== -1) dir = 'kannada-konkani';
