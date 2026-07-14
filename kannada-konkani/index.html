@@ -25,6 +25,7 @@
 </header>
 <main>
   <div id="home-progress"></div>
+  <div id="books-widget"></div>
 
   <div class="module-cards">
     <a class="module-card" href="letters.html">
@@ -58,6 +59,13 @@
 </nav>
 <script src="config.js"></script>
 <script src="data.js"></script>
+<script src="../books-sidebar.js"></script>
 <script src="../engine.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const widget = document.getElementById('books-widget');
+    if (widget) widget.innerHTML = renderBooksSidebar();
+  });
+</script>
 </body>
 </html>
