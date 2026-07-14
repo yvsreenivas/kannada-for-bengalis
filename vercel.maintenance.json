@@ -1,0 +1,6 @@
+{
+  "_comment": "MAINTENANCE MODE TEMPLATE — inert until activated. Vercel only reads a file named 'vercel.json', so this file does nothing on its own. To take the site into maintenance: rename this to 'vercel.json' (back up any real vercel.json first) and push/redeploy — every route then serves maintenance.html. To end maintenance: delete or rename vercel.json back and redeploy. The static asset excludes keep the page's favicon/fonts loading.",
+  "rewrites": [
+    { "source": "/((?!maintenance\\.html|favicon\\.svg).*)", "destination": "/maintenance.html" }
+  ]
+}

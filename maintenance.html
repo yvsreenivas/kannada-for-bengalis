@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google" content="notranslate">
+<meta name="robots" content="noindex">
+<!-- Auto re-check every 60s so visitors roll back onto the site once it's live again -->
+<meta http-equiv="refresh" content="60">
+<title>DipaMoy — down for maintenance</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@600&family=Noto+Sans+Kannada:wght@600&family=Noto+Sans+Malayalam:wght@600&family=Noto+Sans+Devanagari:wght@600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, #131f24 0%, #1b3a1e 100%);
+    color: #fff;
+    min-height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 32px;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 560px; width: 100%; }
+  .lamp {
+    font-size: 88px; line-height: 1;
+    display: inline-block;
+    animation: glow 2.4s ease-in-out infinite;
+  }
+  @keyframes glow {
+    0%, 100% { transform: translateY(0) scale(1);   filter: drop-shadow(0 0 10px rgba(88,204,2,.35)); }
+    50%      { transform: translateY(-6px) scale(1.05); filter: drop-shadow(0 0 26px rgba(88,204,2,.7)); }
+  }
+  .brand { font-size: 34px; font-weight: 800; margin-top: 10px; letter-spacing: -.5px; }
+  h1 {
+    font-size: 30px; font-weight: 800; line-height: 1.2;
+    margin-top: 26px;
+  }
+  h1 .hi { color: #7ee83f; }
+  p.msg {
+    font-size: 17px; color: #9db2bd; line-height: 1.55;
+    margin-top: 14px;
+  }
+  .divider {
+    width: 64px; height: 4px; border-radius: 999px;
+    background: #58cc02; margin: 28px auto 24px;
+    opacity: .9;
+  }
+  .langs {
+    display: flex; flex-direction: column; gap: 10px;
+    font-size: 18px; color: #d7ffb8; font-weight: 600;
+  }
+  .langs span { line-height: 1.4; }
+  .l-bn { font-family: "Noto Sans Bengali", system-ui, sans-serif; }
+  .l-kn { font-family: "Noto Sans Kannada", system-ui, sans-serif; }
+  .l-ml { font-family: "Noto Sans Malayalam", system-ui, sans-serif; }
+  .l-kok{ font-family: "Noto Sans Devanagari", system-ui, sans-serif; }
+  .foot {
+    margin-top: 34px; font-size: 14px; letter-spacing: 3px;
+    text-transform: uppercase; color: #6b8390;
+  }
+  .foot a { color: #58cc02; text-decoration: none; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="lamp">🪔</div>
+    <div class="brand">DipaMoy</div>
+
+    <h1>We're doing a little <span class="hi">maintenance</span></h1>
+    <p class="msg">The site is briefly offline while we make things better. It'll be back shortly — thanks for your patience. This page refreshes itself, so just hang tight.</p>
+
+    <div class="divider"></div>
+
+    <div class="langs">
+      <span class="l-kn" lang="kn">ಶೀಘ್ರದಲ್ಲೇ ಹಿಂತಿರುಗುತ್ತೇವೆ</span>
+      <span class="l-bn" lang="bn">শীঘ্রই ফিরে আসছি</span>
+      <span class="l-ml" lang="ml">ഉടൻ തിരികെ വരാം</span>
+      <span class="l-kok" lang="kok">आमी बेगीनूच परत येतां</span>
+    </div>
+
+    <div class="foot"><a href="/">dipamoy.site</a></div>
+  </div>
+</body>
+</html>
