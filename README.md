@@ -14,6 +14,8 @@
 | [`/kannada-konkani/`](https://dipamoy.site/kannada-konkani/) | **Kannada** (for Konkani speakers) | Devanagari | `kn-IN` |
 | [`/odia/`](https://dipamoy.site/odia/) | **Odia** (for Kannadigas) | Kannada | `or-IN` |
 | [`/kannada-odia/`](https://dipamoy.site/kannada-odia/) | **Kannada** (for Odia speakers) | Odia | `kn-IN` |
+| [`/tamil/`](https://dipamoy.site/tamil/) | **Tamil** (for Kannadigas) | Kannada | `ta-IN` |
+| [`/kannada-tamil/`](https://dipamoy.site/kannada-tamil/) | **Kannada** (for Tamil speakers) | Tamil | `kn-IN` |
 
 ¹ No browser has a Konkani voice, so the Konkani-teaching direction reads its Devanagari text with the Marathi voice.
 
@@ -40,8 +42,10 @@ One shared engine ([engine.js](engine.js)), used by every direction, parameteriz
 /kannada-konkani/  → Konkani  → Kannada
 /odia/             → Kannada  → Odia
 /kannada-odia/     → Odia     → Kannada
+/tamil/            → Kannada  → Tamil
+/kannada-tamil/    → Tamil    → Kannada
 engine.js          → shared by all, direction-agnostic
-style.css          → shared by all (per-lang font rules: bn, kn, ml, kok, or)
+style.css          → shared by all (per-lang font rules: bn, kn, ml, kok, or, ta)
 ```
 
 Folder = the language being **taught**. The two "learn Kannada" directions for non-Bengali audiences use distinct folders (`/kannada/`, `/kannada-konkani/`) since the root is the Bengali flagship.

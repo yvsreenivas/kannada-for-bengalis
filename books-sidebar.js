@@ -95,6 +95,44 @@ const BOOKS_DATA = {
     ]
   },
 
+  // /tamil/: Tamil for Kannadigas
+  'tamil': {
+    lang: 'ta',
+    title: 'தமிழ் புத்தகங்கள்',
+    titleEn: 'Tamil Books',
+    books: [
+      {
+        title: 'Learn Tamil in 30 Days Through English',
+        author: 'K. Thirunavukkarasu',
+        url: 'https://www.amazon.in/s?k=Learn+Tamil+30+Days+Through+English&tag=kannadawordle-21'
+      },
+      {
+        title: 'Tamil Script Made Easy',
+        author: 'Nivetha Mohan',
+        url: 'https://www.amazon.in/s?k=Tamil+Script+Made+Easy&tag=kannadawordle-21'
+      }
+    ]
+  },
+
+  // /kannada-tamil/: Kannada for Tamil speakers
+  'kannada-tamil': {
+    lang: 'kn',
+    title: 'ಕನ್ನಡ ಪುಸ್ತಕಗಳು',
+    titleEn: 'Kannada Books',
+    books: [
+      {
+        title: 'Spoken Kannada for Absolute Beginners',
+        author: 'Sanjay D',
+        url: 'https://www.amazon.in/s?k=Spoken+Kannada+Absolute+Beginners+Sanjay&tag=kannadawordle-21'
+      },
+      {
+        title: 'Learn Kannada In 30 Days Through English',
+        author: 'Krishna Gopal Vikal',
+        url: 'https://www.amazon.in/s?k=Learn+Kannada+30+Days+Through+English&tag=kannadawordle-21'
+      }
+    ]
+  },
+
   // /odia/: Odia for Kannadigas
   'odia': {
     lang: 'or',
@@ -162,7 +200,9 @@ function renderBooksSidebar() {
   else if (p.indexOf('/kannada-konkani/') !== -1) dir = 'kannada-konkani';
   else if (p.indexOf('/konkani/') !== -1) dir = 'konkani';
   else if (p.indexOf('/kannada-odia/') !== -1) dir = 'kannada-odia';
+  else if (p.indexOf('/kannada-tamil/') !== -1) dir = 'kannada-tamil';
   else if (p.indexOf('/odia/') !== -1) dir = 'odia';
+  else if (p.indexOf('/tamil/') !== -1) dir = 'tamil';
   else if (p.indexOf('/kannada/') !== -1) dir = 'kannada';
 
   const bookData = BOOKS_DATA[dir];

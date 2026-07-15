@@ -288,7 +288,9 @@
     { base: "/konkani/",        label: "ಕನ್ನಡ → कोंकणी",  lang: "kn" },
     { base: "/kannada-konkani/", label: "कोंकणी → ಕನ್ನಡ", lang: "kok" },
     { base: "/odia/",            label: "ಕನ್ನಡ → ଓଡ଼ିଆ",   lang: "kn" },
-    { base: "/kannada-odia/",   label: "ଓଡ଼ିଆ → ಕನ್ನಡ",   lang: "or" }
+    { base: "/kannada-odia/",   label: "ଓଡ଼ିଆ → ಕನ್ನಡ",   lang: "or" },
+    { base: "/tamil/",           label: "ಕನ್ನಡ → தமிழ்",   lang: "kn" },
+    { base: "/kannada-tamil/",   label: "தமிழ் → ಕನ್ನಡ",   lang: "ta" }
   ];
 
   function currentBase() {
@@ -298,8 +300,10 @@
     if (p.indexOf("/kannada-konkani/") !== -1) return "/kannada-konkani/";
     if (p.indexOf("/konkani/") !== -1) return "/konkani/";
     if (p.indexOf("/kannada-odia/") !== -1) return "/kannada-odia/";
+    if (p.indexOf("/kannada-tamil/") !== -1) return "/kannada-tamil/";
     if (p.indexOf("/kannada/") !== -1) return "/kannada/";
     if (p.indexOf("/odia/") !== -1) return "/odia/";
+    if (p.indexOf("/tamil/") !== -1) return "/tamil/";
     return "/";
   }
   function currentFile() {
