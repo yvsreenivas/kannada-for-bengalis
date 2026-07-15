@@ -290,7 +290,9 @@
     { base: "/odia/",            label: "ಕನ್ನಡ → ଓଡ଼ିଆ",   lang: "kn" },
     { base: "/kannada-odia/",   label: "ଓଡ଼ିଆ → ಕನ್ನಡ",   lang: "or" },
     { base: "/tamil/",           label: "ಕನ್ನಡ → தமிழ்",   lang: "kn" },
-    { base: "/kannada-tamil/",   label: "தமிழ் → ಕನ್ನಡ",   lang: "ta" }
+    { base: "/kannada-tamil/",   label: "தமிழ் → ಕನ್ನಡ",   lang: "ta" },
+    { base: "/gujarati/",         label: "ಕನ್ನಡ → ગુજરાતી", lang: "kn" },
+    { base: "/kannada-gujarati/", label: "ગુજરાતી → ಕನ್ನಡ", lang: "gu" }
   ];
 
   function currentBase() {
@@ -301,9 +303,11 @@
     if (p.indexOf("/konkani/") !== -1) return "/konkani/";
     if (p.indexOf("/kannada-odia/") !== -1) return "/kannada-odia/";
     if (p.indexOf("/kannada-tamil/") !== -1) return "/kannada-tamil/";
+    if (p.indexOf("/kannada-gujarati/") !== -1) return "/kannada-gujarati/";
     if (p.indexOf("/kannada/") !== -1) return "/kannada/";
     if (p.indexOf("/odia/") !== -1) return "/odia/";
     if (p.indexOf("/tamil/") !== -1) return "/tamil/";
+    if (p.indexOf("/gujarati/") !== -1) return "/gujarati/";
     return "/";
   }
   function currentFile() {

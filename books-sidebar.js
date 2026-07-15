@@ -95,6 +95,44 @@ const BOOKS_DATA = {
     ]
   },
 
+  // /gujarati/: Gujarati for Kannadigas
+  'gujarati': {
+    lang: 'gu',
+    title: 'ગુજરાતી પુસ્તકો',
+    titleEn: 'Gujarati Books',
+    books: [
+      {
+        title: 'Teach Yourself Gujarati',
+        author: 'Jagdish Dave & Kamal Dave',
+        url: 'https://www.amazon.in/s?k=Teach+Yourself+Gujarati+Jagdish+Dave&tag=kannadawordle-21'
+      },
+      {
+        title: 'Learn Gujarati In 30 Days Through English',
+        author: 'Krishna Gopal Vikal',
+        url: 'https://www.amazon.in/s?k=Learn+Gujarati+30+Days+Through+English&tag=kannadawordle-21'
+      }
+    ]
+  },
+
+  // /kannada-gujarati/: Kannada for Gujarati speakers
+  'kannada-gujarati': {
+    lang: 'kn',
+    title: 'ಕನ್ನಡ ಪುಸ್ತಕಗಳು',
+    titleEn: 'Kannada Books',
+    books: [
+      {
+        title: 'Spoken Kannada for Absolute Beginners',
+        author: 'Sanjay D',
+        url: 'https://www.amazon.in/s?k=Spoken+Kannada+Absolute+Beginners+Sanjay&tag=kannadawordle-21'
+      },
+      {
+        title: 'Learn Kannada In 30 Days Through English',
+        author: 'Krishna Gopal Vikal',
+        url: 'https://www.amazon.in/s?k=Learn+Kannada+30+Days+Through+English&tag=kannadawordle-21'
+      }
+    ]
+  },
+
   // /tamil/: Tamil for Kannadigas
   'tamil': {
     lang: 'ta',
@@ -201,8 +239,10 @@ function renderBooksSidebar() {
   else if (p.indexOf('/konkani/') !== -1) dir = 'konkani';
   else if (p.indexOf('/kannada-odia/') !== -1) dir = 'kannada-odia';
   else if (p.indexOf('/kannada-tamil/') !== -1) dir = 'kannada-tamil';
+  else if (p.indexOf('/kannada-gujarati/') !== -1) dir = 'kannada-gujarati';
   else if (p.indexOf('/odia/') !== -1) dir = 'odia';
   else if (p.indexOf('/tamil/') !== -1) dir = 'tamil';
+  else if (p.indexOf('/gujarati/') !== -1) dir = 'gujarati';
   else if (p.indexOf('/kannada/') !== -1) dir = 'kannada';
 
   const bookData = BOOKS_DATA[dir];
