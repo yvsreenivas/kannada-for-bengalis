@@ -50,6 +50,7 @@
     </a>
   </div>
   <div id="books-widget"></div>
+  <div id="wordle-widget"></div>
 </main>
 <nav class="bottom">
   <a href="index.html" class="active"><span class="nav-icon">🏠</span>ಮನೆ</a>
@@ -60,11 +61,14 @@
 <script src="config.js"></script>
 <script src="data.js"></script>
 <script src="../books-sidebar.js"></script>
+<script src="../wordle-promo.js"></script>
 <script src="../engine.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const widget = document.getElementById('books-widget');
     if (widget) widget.innerHTML = renderBooksSidebar();
+    const wordleWidget = document.getElementById('wordle-widget');
+    if (wordleWidget) wordleWidget.innerHTML = renderWordlePromo();
   });
 </script>
 </body>

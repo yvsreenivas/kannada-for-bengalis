@@ -244,3 +244,17 @@ nav.bottom a.active { color: var(--green); font-weight: 700; }
 .books-footer { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
   text-align: center; font-size: .75rem; color: var(--muted); }
 .affiliate-note { display: block; font-style: italic; }
+
+/* Wordle promo */
+.wordle-promo {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px 16px; margin: 16px 0; text-decoration: none; color: inherit;
+  transition: all .2s;
+}
+.wordle-promo:hover { border-color: var(--blue); }
+.wordle-promo-icon { font-size: 1.4rem; }
+.wordle-promo-text { display: flex; flex-direction: column; gap: 2px; }
+.wordle-promo-title { font-weight: 700; font-size: .95rem; color: var(--blue); }
+.wordle-promo-sub { font-size: .8rem; color: var(--muted); }
+.wordle-promo-arrow { margin-left: auto; font-weight: 700; color: var(--blue); }
