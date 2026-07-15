@@ -95,6 +95,44 @@ const BOOKS_DATA = {
     ]
   },
 
+  // /odia/: Odia for Kannadigas
+  'odia': {
+    lang: 'or',
+    title: 'ଓଡ଼ିଆ ପୁସ୍ତକ',
+    titleEn: 'Odia Books',
+    books: [
+      {
+        title: 'Learn Odia Language Quickly',
+        author: 'Tarun Kumar Panda',
+        url: 'https://www.amazon.in/s?k=Learn+Odia+Language+Quickly+Tarun+Panda&tag=kannadawordle-21'
+      },
+      {
+        title: 'Spoken Odia for Everyone',
+        author: 'Various',
+        url: 'https://www.amazon.in/s?k=Spoken+Odia+for+Everyone&tag=kannadawordle-21'
+      }
+    ]
+  },
+
+  // /kannada-odia/: Kannada for Odia speakers
+  'kannada-odia': {
+    lang: 'kn',
+    title: 'ಕನ್ನಡ ಪುಸ್ತಕಗಳು',
+    titleEn: 'Kannada Books',
+    books: [
+      {
+        title: 'Spoken Kannada for Absolute Beginners',
+        author: 'Sanjay D',
+        url: 'https://www.amazon.in/s?k=Spoken+Kannada+Absolute+Beginners+Sanjay&tag=kannadawordle-21'
+      },
+      {
+        title: 'Learn Kannada In 30 Days Through English',
+        author: 'Krishna Gopal Vikal',
+        url: 'https://www.amazon.in/s?k=Learn+Kannada+30+Days+Through+English&tag=kannadawordle-21'
+      }
+    ]
+  },
+
   // /kannada-konkani/: Kannada for Konkani speakers
   'kannada-konkani': {
     lang: 'kn',
@@ -123,6 +161,8 @@ function renderBooksSidebar() {
   else if (p.indexOf('/malayalam/') !== -1) dir = 'malayalam';
   else if (p.indexOf('/kannada-konkani/') !== -1) dir = 'kannada-konkani';
   else if (p.indexOf('/konkani/') !== -1) dir = 'konkani';
+  else if (p.indexOf('/kannada-odia/') !== -1) dir = 'kannada-odia';
+  else if (p.indexOf('/odia/') !== -1) dir = 'odia';
   else if (p.indexOf('/kannada/') !== -1) dir = 'kannada';
 
   const bookData = BOOKS_DATA[dir];
