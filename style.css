@@ -241,6 +241,7 @@ nav.bottom a.active { color: var(--green); font-weight: 700; }
 .book-link:hover { color: var(--green); }
 .book-name { font-weight: 600; font-size: .95rem; }
 .book-author { font-size: .8rem; color: var(--muted); }
+.books-header-exams { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
 .books-footer { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
   text-align: center; font-size: .75rem; color: var(--muted); }
 .affiliate-note { display: block; font-style: italic; }

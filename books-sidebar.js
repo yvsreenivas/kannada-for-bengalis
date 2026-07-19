@@ -229,6 +229,35 @@ const BOOKS_DATA = {
   }
 };
 
+// Competitive exam picks for SSLC (10th) pass & above — shown on every direction,
+// aimed at migrant workers preparing for SSC, Railways, Banking and similar exams
+const EXAM_BOOKS = {
+  title: 'Competitive Exam Books',
+  note: 'SSLC (10th) pass & above · SSC · Railways · Banking',
+  books: [
+    {
+      title: "Lucent's General Knowledge",
+      author: 'Dr. Binay Karna',
+      url: 'https://www.amazon.in/s?k=Lucent+General+Knowledge&tag=kannadawordle-21'
+    },
+    {
+      title: 'Quantitative Aptitude for Competitive Examinations',
+      author: 'R.S. Aggarwal',
+      url: 'https://www.amazon.in/s?k=Quantitative+Aptitude+Competitive+Examinations+Aggarwal&tag=kannadawordle-21'
+    },
+    {
+      title: 'SSC GD Constable Exam Guide',
+      author: 'Arihant Experts',
+      url: 'https://www.amazon.in/s?k=SSC+GD+Constable+Exam+Guide+Arihant&tag=kannadawordle-21'
+    },
+    {
+      title: 'RRB Group D Level 1 Exam Guide',
+      author: 'Disha Experts',
+      url: 'https://www.amazon.in/s?k=RRB+Group+D+Level+1+Exam+Guide&tag=kannadawordle-21'
+    }
+  ]
+};
+
 function renderBooksSidebar() {
   // Determine current direction from pathname
   const p = location.pathname;
@@ -259,6 +288,26 @@ function renderBooksSidebar() {
   `;
 
   bookData.books.forEach(book => {
+    html += `
+      <li class="book-item">
+        <a href="${book.url}" target="_blank" rel="noopener noreferrer" class="book-link">
+          <span class="book-name">${book.title}</span>
+          <span class="book-author">${book.author}</span>
+        </a>
+      </li>
+    `;
+  });
+
+  html += `
+      </ul>
+      <div class="books-header books-header-exams" lang="en">
+        <span class="books-title">${EXAM_BOOKS.title}</span>
+        <span class="books-title-en">${EXAM_BOOKS.note}</span>
+      </div>
+      <ul class="books-list" lang="en">
+  `;
+
+  EXAM_BOOKS.books.forEach(book => {
     html += `
       <li class="book-item">
         <a href="${book.url}" target="_blank" rel="noopener noreferrer" class="book-link">
