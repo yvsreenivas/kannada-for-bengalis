@@ -59,6 +59,11 @@ header h1 {
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+header h1 .h1-icon {
+  background: none;
+  -webkit-background-clip: initial; background-clip: initial;
+  -webkit-text-fill-color: initial;
+}
 header .tagline { color: var(--muted); margin: 4px 0 0; font-size: .95rem; }
 .switcher {
   display: inline-block; margin-top: 10px;
