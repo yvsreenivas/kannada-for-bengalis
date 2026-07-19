@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DipaMoy — OG Graphic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Noto+Sans+Bengali:wght@700&family=Noto+Sans+Kannada:wght@700&family=Noto+Sans+Malayalam:wght@700&family=Noto+Sans+Tamil:wght@700&family=Noto+Sans+Gujarati:wght@700&family=Noto+Sans+Oriya:wght@700&family=Noto+Sans+Devanagari:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #cdeafe; }
+  .poster {
+    width: 1200px;
+    height: 630px;
+    background: #cdeafe;
+    padding: 22px;
+    font-family: 'Poppins', sans-serif;
+  }
+  .board {
+    width: 100%;
+    height: 100%;
+    background: #fce9a0;
+    border: 4px solid #111;
+    border-radius: 36px;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 0;
+  }
+  .sq {
+    border: 2px solid #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    font-weight: 700;
+    color: rgba(17, 17, 17, 0.6);
+  }
+  .c-blue   { background: #bfe3fb; }
+  .c-pink   { background: #fbd1e8; }
+  .c-purple { background: #ddd6f3; }
+  .c-green  { background: #d9f2d0; }
+  .center {
+    grid-column: 2 / 7;
+    grid-row: 2 / 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px 24px;
+  }
+  .title { font-size: 64px; font-weight: 900; color: #111; line-height: 1.1; }
+  .title .diya { margin-right: 10px; }
+  .sub { font-size: 24px; font-weight: 700; color: #111; margin-top: 4px; }
+  .facts { font-size: 19px; font-weight: 600; color: #444; margin: 10px 0 16px; }
+  .url-pill {
+    display: inline-block;
+    background: #fff;
+    border: 2px solid #111;
+    border-radius: 999px;
+    padding: 9px 30px;
+    font-size: 21px;
+    font-weight: 800;
+    color: #111;
+  }
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="board">
+    <!-- Top row: "ka" in each of the seven scripts DipaMoy teaches from -->
+    <div class="sq c-blue" style="font-family:'Noto Sans Bengali',sans-serif">ক</div>
+    <div class="sq c-pink" style="font-family:'Noto Sans Malayalam',sans-serif">ക</div>
+    <div class="sq c-purple" style="font-family:'Noto Sans Tamil',sans-serif">க</div>
+    <div class="sq c-green" style="font-family:'Noto Sans Kannada',sans-serif;color:#fff;background:#059669">ಕ</div>
+    <div class="sq c-blue" style="font-family:'Noto Sans Gujarati',sans-serif">ક</div>
+    <div class="sq c-pink" style="font-family:'Noto Sans Oriya',sans-serif">କ</div>
+    <div class="sq c-purple" style="font-family:'Noto Sans Devanagari',sans-serif">क</div>
+
+    <!-- Row 2: sides -->
+    <div class="sq c-green">🪔</div>
+    <div class="center">
+      <div class="title"><span class="diya">🪔</span>DipaMoy</div>
+      <div class="sub">Easy spoken Kannada — in your own script</div>
+      <div class="facts">বাংলা · മലയാളം · தமிழ் · ગુજરાતી · ଓଡ଼ିଆ · कोंकणी &nbsp;→&nbsp; ಕನ್ನಡ<br>Free · No signup · Works on any phone</div>
+      <div class="url-pill">dipamoy.site</div>
+    </div>
+    <div class="sq c-pink">🪔</div>
+
+    <!-- Row 3: sides -->
+    <div class="sq c-purple">⭐</div>
+    <div class="sq c-blue">⭐</div>
+
+    <!-- Bottom row: the "a" vowel in each script -->
+    <div class="sq c-purple" style="font-family:'Noto Sans Bengali',sans-serif">অ</div>
+    <div class="sq c-blue" style="font-family:'Noto Sans Malayalam',sans-serif">അ</div>
+    <div class="sq c-green" style="font-family:'Noto Sans Tamil',sans-serif">அ</div>
+    <div class="sq c-pink" style="font-family:'Noto Sans Kannada',sans-serif;color:#fff;background:#059669">ಅ</div>
+    <div class="sq c-purple" style="font-family:'Noto Sans Gujarati',sans-serif">અ</div>
+    <div class="sq c-blue" style="font-family:'Noto Sans Oriya',sans-serif">ଅ</div>
+    <div class="sq c-green" style="font-family:'Noto Sans Devanagari',sans-serif">अ</div>
+  </div>
+</div>
+</body>
+</html>
