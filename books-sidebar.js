@@ -321,6 +321,7 @@ function renderBooksSidebar() {
   html += `
       </ul>
       <div class="books-footer">
+        <a href="/blog/" class="blog-promo-link" lang="en">💼 Small business ideas for young workers →</a>
         <span class="affiliate-note">Amazon affiliate links</span>
       </div>
     </aside>

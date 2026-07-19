@@ -29,6 +29,7 @@ Every page has a **language chooser** in the header to jump between all twelve d
 - **🔊 Audio** — browser text-to-speech with a graceful fallback message when the voice is missing
 - **Progress** — tracked locally in `localStorage` (separate keys per direction), no accounts
 - **📚 Books** — two handpicked Amazon.in book picks per direction, plus a shared competitive-exam section (SSLC & above: SSC, Railways, Banking) for migrant-worker learners, on every home page ([books-sidebar.js](books-sidebar.js))
+- **📝 Blog** — small-business guides for young migrant workers (tea stall, vegetable cart, mobile shop, tailoring, tiffin service), each with costs, government schemes, and trade-specific Kannada phrases ([blog/](blog/))
 - **🔤 Wordle cross-promo** — the six Kannada-audience directions link out to the sibling app [Kannada Wordle](https://www.kannadawordle.xyz/) ([wordle-promo.js](wordle-promo.js))
 - Google Analytics + AdSense on every page
 

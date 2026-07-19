@@ -242,6 +242,26 @@ nav.bottom a.active { color: var(--green); font-weight: 700; }
 .book-name { font-weight: 600; font-size: .95rem; }
 .book-author { font-size: .8rem; color: var(--muted); }
 .books-header-exams { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
+.blog-promo-link { display: block; margin-bottom: 6px; color: var(--blue); text-decoration: none; font-weight: 600; }
+
+/* Blog */
+.back-link { display: inline-block; margin: 8px 0; color: var(--blue); text-decoration: none; font-size: .9rem; }
+.blog-post {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px; margin: 12px 0;
+}
+.blog-post h1 { font-size: 1.35rem; margin: 0 0 8px; }
+.blog-post h2 { font-size: 1.1rem; margin: 24px 0 8px; }
+.blog-post p, .blog-post li { font-size: .95rem; }
+.blog-meta { color: var(--muted); font-size: .8rem; }
+.cost-box {
+  background: var(--bg); border: 1px dashed var(--border); border-radius: 8px;
+  padding: 12px 16px; margin: 12px 0; font-size: .9rem;
+}
+.phrase-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+.phrase-table td { border-bottom: 1px solid var(--border); padding: 8px 6px; font-size: .9rem; vertical-align: top; }
+.phrase-kn { font-weight: 600; white-space: nowrap; }
+@media (max-width: 480px) { .phrase-kn { white-space: normal; } }
 .books-footer { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
   text-align: center; font-size: .75rem; color: var(--muted); }
 .affiliate-note { display: block; font-style: italic; }
