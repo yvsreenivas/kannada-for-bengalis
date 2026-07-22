@@ -254,6 +254,16 @@ const EXAM_BOOKS = {
       title: 'RRB Group D Level 1 Exam Guide',
       author: 'Disha Experts',
       url: 'https://www.amazon.in/s?k=RRB+Group+D+Level+1+Exam+Guide&tag=kannadawordle-21'
+    },
+    {
+      title: 'General Knowledge 2026: One-Liner GK & Current Affairs Question Bank for SSC, Banking, Railways & All Competitive Exams',
+      author: 'Sreenivash Venkatesh',
+      url: 'https://amzn.in/d/0cVroV21'
+    },
+    {
+      title: 'General Knowledge 2026 — Hindi Edition: One-Liner GK & Current Affairs for Competitive Exams (सामान्य ज्ञान 2026)',
+      author: 'Sreenivash Venkatesh',
+      url: 'https://amzn.in/d/0jb2qitl'
     }
   ]
 };
