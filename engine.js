@@ -281,8 +281,8 @@
   // All learning directions in the app. `base` is the folder; every direction
   // has the same four page files (index/letters/phrases/practice.html).
   var DIRECTIONS = [
-    { base: "/",                label: "বাংলা → ಕನ್ನಡ",   lang: "bn" },
     { base: "/bengali/",        label: "ಕನ್ನಡ → বাংলা",   lang: "kn" },
+    { base: "/",                label: "বাংলা → ಕನ್ನಡ",   lang: "bn" },
     { base: "/malayalam/",      label: "ಕನ್ನಡ → മലയാളം", lang: "kn" },
     { base: "/kannada/",        label: "മലയാളം → ಕನ್ನಡ", lang: "ml" },
     { base: "/konkani/",        label: "ಕನ್ನಡ → कोंकणी",  lang: "kn" },
@@ -308,7 +308,7 @@
     if (p.indexOf("/odia/") !== -1) return "/odia/";
     if (p.indexOf("/tamil/") !== -1) return "/tamil/";
     if (p.indexOf("/gujarati/") !== -1) return "/gujarati/";
-    return "/";
+    return "/bengali/";
   }
   function currentFile() {
     var seg = location.pathname.split("/").pop();
