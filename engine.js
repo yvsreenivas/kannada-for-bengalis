@@ -308,7 +308,7 @@
     if (p.indexOf("/odia/") !== -1) return "/odia/";
     if (p.indexOf("/tamil/") !== -1) return "/tamil/";
     if (p.indexOf("/gujarati/") !== -1) return "/gujarati/";
-    return "/bengali/";
+    return "/";
   }
   function currentFile() {
     var seg = location.pathname.split("/").pop();
