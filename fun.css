@@ -185,3 +185,18 @@
 }
 .fun-btn.active { background: #fce9a0; font-weight: 700; }
 .fun-btn.warn { color: var(--orange); }
+
+/* Link out to the original standalone fullscreen build of this game. */
+.fun-fullscreen {
+  display: block;
+  width: fit-content;
+  margin: 14px auto 0;
+  padding: 8px 16px;
+  background: var(--card);
+  border: 2px dashed var(--border);
+  border-radius: 999px;
+  color: var(--orange);
+  font-size: .85rem; font-weight: 700;
+  text-decoration: none;
+}
+.fun-fullscreen:active { background: #fce9a0; }

@@ -501,6 +501,7 @@
     btnL2.textContent = S.level2;
     resetBtn.textContent = S.reset;
     resetScoreBtn.textContent = "⭐ " + S.resetScore;
+    document.getElementById("fun-fullscreen").textContent = "⛶ " + S.fullscreen;
     document.getElementById("win-title").textContent = "🎉 " + S.winTitle;
     document.getElementById("win-text").textContent = S.winText;
     document.getElementById("lose-title").textContent = "🐍 " + S.loseTitle;

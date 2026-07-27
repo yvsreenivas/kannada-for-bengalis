@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>🪔 DipaMoy • ನಿಮ್ಮ ಕ್ರಶ್</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+html,body{width:100%;height:100%;overflow:hidden;background:#07071a;font-family:system-ui,-apple-system,"Noto Sans Kannada","Segoe UI",sans-serif;color:#fff;touch-action:none}
+#bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:50;padding:8px 12px 8px;background:linear-gradient(180deg,rgba(8,8,25,.96) 60%,transparent);text-align:center;pointer-events:none}
+h1{font-size:1.05rem;font-weight:700;color:#ffd76a;text-shadow:0 0 12px rgba(255,180,40,.5)}
+.subtitle{font-size:.68rem;opacity:.7;margin-top:1px}
+.stats{display:flex;justify-content:center;gap:8px;margin-top:6px;pointer-events:auto;flex-wrap:wrap}
+.stat{display:inline-flex;align-items:center;gap:4px;padding:4px 11px;background:rgba(201,162,39,.14);border:1px solid rgba(201,162,39,.4);border-radius:999px;font-size:.85rem;font-weight:700;color:#ffd76a}
+.stat.danger{color:#ff7b7b;border-color:rgba(255,100,100,.45);background:rgba(255,80,80,.12)}
+.level-btns{display:flex;justify-content:center;gap:8px;margin-top:7px;pointer-events:auto}
+.level-btns button{font-size:.78rem;padding:6px 14px;border-radius:999px;border:2px solid #c9a227;background:linear-gradient(180deg,#3a2a6e,#1e1540);color:#ffd76a;font-weight:600}
+.level-btns button.active{background:linear-gradient(180deg,#5a3a1e,#3a2010);border-color:#ffd76a;box-shadow:0 0 12px rgba(255,200,60,.4)}
+#float-area{position:fixed;inset:0;z-index:20;pointer-events:none}
+.float-letter{position:absolute;width:58px;height:58px;display:flex;align-items:center;justify-content:center;font-size:1.95rem;font-weight:600;border-radius:15px;cursor:grab;pointer-events:auto;touch-action:none;z-index:25;transition:opacity .3s,filter .3s;border:2px solid;box-shadow:0 3px 0 rgba(0,0,0,.35),0 5px 14px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.12)}
+.float-letter.r1{background:linear-gradient(145deg,#2a1f5c,#1a1240);border-color:#c9a227;color:#ffe9a0}
+.float-letter.r2{background:linear-gradient(145deg,#1a3a5c,#0f2440);border-color:#5ec8ff;color:#c8eeff}
+.float-letter.r3{background:linear-gradient(145deg,#4a1a5c,#2e0f40);border-color:#d97bff;color:#f0d0ff}
+.float-letter.r4{background:linear-gradient(145deg,#5c1a1a,#401010);border-color:#ff6b6b;color:#ffd0d0}
+.float-letter.used{opacity:.18;filter:grayscale(.8);pointer-events:none;transform:scale(.8)!important}
+.float-letter.eaten{opacity:0;transform:scale(.3)!important;pointer-events:none;transition:all .35s ease}
+.float-letter.dragging{z-index:100;box-shadow:0 0 26px rgba(255,200,60,.8),0 8px 22px rgba(0,0,0,.5)!important}
+#snake{position:absolute;width:48px;height:48px;display:none;align-items:center;justify-content:center;font-size:2.2rem;z-index:30;pointer-events:none;filter:drop-shadow(0 0 8px rgba(50,220,80,.6))}
+#snake.show{display:flex}
+#snake.chomping{animation:chomp .25s ease}
+@keyframes chomp{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
+.word-area{position:fixed;bottom:68px;left:0;right:0;z-index:40;display:flex;flex-direction:column;align-items:center;pointer-events:none;padding:0 14px}
+.stack-label{font-size:.7rem;letter-spacing:1px;color:#c9a227;margin-bottom:5px;opacity:.85;display:none}
+.word-card{background:linear-gradient(160deg,rgba(40,25,70,.96),rgba(20,12,40,.98));border:2px solid #c9a227;border-radius:16px;padding:10px 18px 12px;box-shadow:0 0 0 1px rgba(255,215,100,.1),0 10px 28px rgba(0,0,0,.5);text-align:center;animation:cardIn .4s cubic-bezier(.34,1.4,.64,1) both;max-width:300px;width:100%}
+@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+.start-letter{font-size:2.2rem;color:#ffd76a;text-shadow:0 0 14px rgba(255,190,50,.6)}
+.word-emoji{font-size:2.4rem;margin:2px 0;line-height:1}
+.full-word{font-size:1.75rem;font-weight:700;color:#fff8e0;letter-spacing:1px;padding:3px 12px;margin:3px 0;background:rgba(255,215,100,.1);border:1px solid rgba(201,162,39,.4);border-radius:10px;display:inline-block}
+.meaning{font-size:.78rem;color:rgba(255,230,180,.7);margin-top:2px}
+.points-tag{font-size:.75rem;color:#7bffb3;margin-top:3px}
+.controls{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:50;pointer-events:auto}
+button{appearance:none;border:2px solid #c9a227;background:linear-gradient(180deg,#3a2a6e,#1e1540);color:#ffd76a;font-size:.82rem;font-weight:600;padding:9px 18px;border-radius:999px;cursor:pointer;box-shadow:0 3px 0 #7b1e2b,0 5px 12px rgba(0,0,0,.4)}
+button:active{transform:translateY(2px);box-shadow:0 1px 0 #7b1e2b}
+.hint{position:fixed;top:42%;left:50%;transform:translate(-50%,-50%);z-index:15;text-align:center;font-size:.9rem;color:rgba(255,230,160,.85);text-shadow:0 2px 8px rgba(0,0,0,.6);pointer-events:none;transition:opacity .4s;max-width:85%;line-height:1.4}
+.hint.hidden{opacity:0}
+.legend{position:fixed;top:110px;right:8px;z-index:45;font-size:.65rem;background:rgba(10,10,30,.75);border:1px solid rgba(201,162,39,.3);border-radius:10px;padding:6px 8px;line-height:1.45;pointer-events:none}
+.legend div{display:flex;align-items:center;gap:5px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.overlay-msg{position:fixed;inset:0;z-index:80;background:rgba(5,5,20,.78);display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center;pointer-events:auto}
+.overlay-msg.show{display:flex}
+.overlay-msg h2{font-size:1.55rem;color:#ffd76a}
+.overlay-msg p{font-size:.92rem;opacity:.85;max-width:80%}
+
+.sound-ring{position:fixed;border-radius:50%;border:2px solid rgba(255,215,100,.7);pointer-events:none;z-index:60;animation:soundRing 0.9s ease-out forwards}
+@keyframes soundRing{0%{width:20px;height:20px;opacity:0.9;margin-left:-10px;margin-top:-10px}100%{width:160px;height:160px;opacity:0;margin-left:-80px;margin-top:-80px}}
+.sound-note{position:fixed;font-size:1.4rem;pointer-events:none;z-index:61;animation:floatNote 1.1s ease-out forwards;opacity:0.95}
+@keyframes floatNote{0%{transform:translateY(0) scale(0.6);opacity:1}100%{transform:translateY(-70px) scale(1.2);opacity:0}}
+.speaking-waves{display:inline-flex;gap:3px;align-items:flex-end;height:16px;margin-left:6px;vertical-align:middle}
+.speaking-waves span{width:3px;background:#ffd76a;border-radius:2px;animation:waveBar 0.45s ease-in-out infinite alternate}
+.speaking-waves span:nth-child(1){height:6px;animation-delay:0s}
+.speaking-waves span:nth-child(2){height:12px;animation-delay:0.1s}
+.speaking-waves span:nth-child(3){height:8px;animation-delay:0.2s}
+.speaking-waves span:nth-child(4){height:14px;animation-delay:0.15s}
+@keyframes waveBar{from{transform:scaleY(0.4)}to{transform:scaleY(1)}}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div class="top-bar">
+  <div style="font-size:0.72rem;letter-spacing:1.5px;color:#c9a227;opacity:0.9;margin-bottom:2px;display:flex;align-items:center;justify-content:center;gap:4px">
+    <span style="font-size:1.1rem">🪔</span> DIPAMOY
+  </div>
+  <h1>ನಿಮ್ಮ ಕ್ರಶ್ 😍</h1>
+  <div class="subtitle" id="modeText">Level 1 • Free Learning</div>
+  <div class="stats">
+    <div class="stat">⭐ <span id="score">0</span></div>
+    <div class="stat">🔤 <span id="left">0</span></div>
+    <div class="stat danger" id="eatenStat" style="display:none">🐍 <span id="eaten">0</span></div>
+  </div>
+  <div class="level-btns">
+    <button id="btnL1" class="active">Level 1 • Learn</button>
+    <button id="btnL2">Level 2 • Snake</button>
+  </div>
+</div>
+<div class="legend">
+  <div><span class="dot" style="background:#c9a227"></span> Common +5</div>
+  <div><span class="dot" style="background:#5ec8ff"></span> Uncommon +10</div>
+  <div><span class="dot" style="background:#d97bff"></span> Rare +15</div>
+  <div><span class="dot" style="background:#ff6b6b"></span> Legendary +25</div>
+</div>
+<div id="float-area"></div>
+<div id="snake">🐍</div>
+<div class="hint" id="hint">ಅಕ್ಷರವನ್ನು ಕೆಳಗೆ ಎಳೆಯಿರಿ<br>Pull any letter down to learn</div>
+<div class="word-area">
+  <div class="stack-label" id="stackLabel">ನಿಮ್ಮ ಪದ / YOUR WORD</div>
+  <div id="wordContainer"></div>
+</div>
+<div class="controls" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+  <button id="resetBtn">ಮರುಹೊಂದಿಸಿ • Reset</button>
+  <button id="resetScoreBtn" style="border-color:#ff6b6b;color:#ffb0b0">⭐ Reset Score</button>
+</div>
+<div class="overlay-msg" id="winMsg"><h2>🎉 ಅಭಿನಂದನೆಗಳು!</h2><p id="winText">You cleared all letters!</p><button id="winReset">Play Again</button></div>
+<div class="overlay-msg" id="loseMsg"><h2>🐍 Snake won!</h2><p>The snake ate too many letters.<br>Try Level 1 first, then come back!</p><button id="loseReset">Try Again</button></div>
+<script>
+const LETTER_META={'ಅ':{r:1},'ಆ':{r:1},'ಇ':{r:1},'ಈ':{r:1},'ಉ':{r:1},'ಊ':{r:1},'ಎ':{r:1},'ಏ':{r:2},'ಐ':{r:2},'ಒ':{r:1},'ಓ':{r:2},'ಔ':{r:3},'ಕ':{r:1},'ಖ':{r:3},'ಗ':{r:1},'ಘ':{r:4},'ಚ':{r:2},'ಛ':{r:3},'ಜ':{r:1},'ಟ':{r:3},'ತ':{r:1},'ದ':{r:1},'ನ':{r:1},'ಪ':{r:1},'ಬ':{r:1},'ಮ':{r:1},'ಯ':{r:2},'ರ':{r:1},'ಲ':{r:1},'ವ':{r:1},'ಶ':{r:2},'ಸ':{r:1},'ಹ':{r:1},'ಳ':{r:3}};
+const POINTS={1:5,2:10,3:15,4:25};
+const LETTER_WORDS={
+'ಅ':[{w:'ಅಮ್ಮ',m:'Mother',e:'👩'},{w:'ಅಪ್ಪ',m:'Father',e:'👨'},{w:'ಅರಳಿ',m:'Peepal',e:'🌳'},{w:'ಅಕ್ಕ',m:'Sister',e:'👧'},{w:'ಅಣ್ಣ',m:'Brother',e:'👦'},{w:'ಅಂಬೆ',m:'Mango',e:'🥭'},{w:'ಅಗಸೆ',m:'Flax',e:'🌿'},{w:'ಅಂಗಡಿ',m:'Shop',e:'🏪'}],
+'ಆ':[{w:'ಆನೆ',m:'Elephant',e:'🐘'},{w:'ಆಕಾಶ',m:'Sky',e:'🌌'},{w:'ಆಟ',m:'Play',e:'🎮'},{w:'ಆರು',m:'Six',e:'6️⃣'},{w:'ಆಸೆ',m:'Wish',e:'🌟'},{w:'ಆಹಾರ',m:'Food',e:'🍲'},{w:'ಆಲದಮರ',m:'Banyan',e:'🌳'}],
+'ಇ':[{w:'ಇಲಿ',m:'Mouse',e:'🐭'},{w:'ಇಟ್ಟಿಗೆ',m:'Brick',e:'🧱'},{w:'ಇರುವೆ',m:'Ant',e:'🐜'},{w:'ಇಪ್ಪತ್ತು',m:'Twenty',e:'2️⃣0️⃣'},{w:'ಇದ್ದಲು',m:'Coal',e:'⬛'},{w:'ಇಲ್ಲ',m:'No',e:'🚫'}],
+'ಈ':[{w:'ಈಗ',m:'Now',e:'⏰'},{w:'ಈಸು',m:'Swim',e:'🏊'},{w:'ಈಚಲು',m:'This side',e:'👉'},{w:'ಈರುಳ್ಳಿ',m:'Onion',e:'🧅'},{w:'ಈಜು',m:'Swim',e:'🌊'}],
+'ಉ':[{w:'ಉಪ್ಪು',m:'Salt',e:'🧂'},{w:'ಉರುಳೆ',m:'Potato',e:'🥔'},{w:'ಉಡುಪು',m:'Clothes',e:'👕'},{w:'ಉಂಡೆ',m:'Ball',e:'⚪'},{w:'ಉಸಿರು',m:'Breath',e:'💨'},{w:'ಉಗುರು',m:'Nail',e:'💅'},{w:'ಉಪ್ಪಿನಕಾಯಿ',m:'Pickle',e:'🥒'}],
+'ಊ':[{w:'ಊರು',m:'Village',e:'🏡'},{w:'ಊಟ',m:'Meal',e:'🍚'},{w:'ಊದು',m:'Blow',e:'💨'},{w:'ಊಟದಮನೆ',m:'Dining',e:'🍽️'}],
+'ಎ':[{w:'ಎಲೆ',m:'Leaf',e:'🍃'},{w:'ಎಮ್ಮೆ',m:'Buffalo',e:'🐃'},{w:'ಎಣ್ಣೆ',m:'Oil',e:'🛢️'},{w:'ಎರಡು',m:'Two',e:'2️⃣'},{w:'ಎತ್ತು',m:'Ox',e:'🐂'},{w:'ಎತ್ತರ',m:'Height',e:'📏'}],
+'ಏ':[{w:'ಏನು',m:'What',e:'❓'},{w:'ಏಣಿ',m:'Ladder',e:'🪜'},{w:'ಏಳು',m:'Seven',e:'7️⃣'},{w:'ಏರು',m:'Rise',e:'📈'}],
+'ಐ':[{w:'ಐದು',m:'Five',e:'5️⃣'},{w:'ಐಸ್',m:'Ice',e:'🧊'},{w:'ಐಶ್ವರ್ಯ',m:'Wealth',e:'💰'}],
+'ಒ':[{w:'ಒಂದು',m:'One',e:'1️⃣'},{w:'ಒಲೆ',m:'Stove',e:'🔥'},{w:'ಒಣ',m:'Dry',e:'☀️'},{w:'ಒಡವೆ',m:'Jewelry',e:'💍'},{w:'ಒಪ್ಪಿಗೆ',m:'Agreement',e:'🤝'}],
+'ಓ':[{w:'ಓದು',m:'Read',e:'📖'},{w:'ಓಟ',m:'Race',e:'🏃'},{w:'ಓಣಿ',m:'Lane',e:'🛤️'},{w:'ಓರಣೆ',m:'Decor',e:'🎀'}],
+'ಔ':[{w:'ಔಷಧ',m:'Medicine',e:'💊'},{w:'ಔದಾರ್ಯ',m:'Generosity',e:'🎁'}],
+'ಕ':[{w:'ಕಮಲ',m:'Lotus',e:'🪷'},{w:'ಕಾಗೆ',m:'Crow',e:'🐦‍⬛'},{w:'ಕುದುರೆ',m:'Horse',e:'🐴'},{w:'ಕಣ್ಣು',m:'Eye',e:'👁️'},{w:'ಕಾಲು',m:'Leg',e:'🦵'},{w:'ಕೈ',m:'Hand',e:'✋'},{w:'ಕೊಳ',m:'Pond',e:'🏞️'},{w:'ಕಪ್ಪೆ',m:'Frog',e:'🐸'},{w:'ಕೋತಿ',m:'Monkey',e:'🐵'},{w:'ಕಲ್ಲು',m:'Stone',e:'🪨'},{w:'ಕಾವಿ',m:'Saffron',e:'🧡'},{w:'ಕನಸು',m:'Dream',e:'💭'}],
+'ಖ':[{w:'ಖಡ್ಗ',m:'Sword',e:'⚔️'},{w:'ಖಾಲಿ',m:'Empty',e:'📭'},{w:'ಖ್ಯಾತಿ',m:'Fame',e:'🏆'}],
+'ಗ':[{w:'ಗಜ',m:'Elephant',e:'🐘'},{w:'ಗುಲಾಬಿ',m:'Rose',e:'🌹'},{w:'ಗಣಪ',m:'Ganesha',e:'🕉️'},{w:'ಗಾಳಿ',m:'Wind',e:'💨'},{w:'ಗುಡಿ',m:'Temple',e:'🛕'},{w:'ಗೆಜ್ಜೆ',m:'Anklet',e:'🔔'},{w:'ಗುಂಪು',m:'Group',e:'👥'},{w:'ಗಡಿಯಾರ',m:'Clock',e:'🕰️'}],
+'ಘ':[{w:'ಘಂಟೆ',m:'Bell',e:'🔔'},{w:'ಘನ',m:'Solid',e:'📦'}],
+'ಚ':[{w:'ಚಂದ್ರ',m:'Moon',e:'🌙'},{w:'ಚಿನ್ನಿ',m:'Chinni',e:'👧'},{w:'ಚಿಟ್ಟೆ',m:'Butterfly',e:'🦋'},{w:'ಚೆಂಡು',m:'Ball',e:'⚽'},{w:'ಚಹಾ',m:'Tea',e:'🍵'},{w:'ಚಿತ್ರ',m:'Picture',e:'🖼️'},{w:'ಚಿನ್ನ',m:'Gold',e:'🥇'},{w:'ಚಳಿ',m:'Cold',e:'🥶'}],
+'ಛ':[{w:'ಛತ್ರಿ',m:'Umbrella',e:'☂️'},{w:'ಛಾಯೆ',m:'Shadow',e:'🌑'}],
+'ಜ':[{w:'ಜಲ',m:'Water',e:'💧'},{w:'ಜಗತ್ತು',m:'World',e:'🌍'},{w:'ಜೇನು',m:'Honey',e:'🍯'},{w:'ಜಿಂಕೆ',m:'Deer',e:'🦌'},{w:'ಜನ',m:'People',e:'👥'},{w:'ಜಾಣ',m:'Smart',e:'🧠'},{w:'ಜೋಡಿ',m:'Pair',e:'👫'}],
+'ಟ':[{w:'ಟೊಮೆಟೊ',m:'Tomato',e:'🍅'},{w:'ಟೋಪಿ',m:'Cap',e:'🧢'},{w:'ಟಿವಿ',m:'TV',e:'📺'}],
+'ತ':[{w:'ತಾರೆ',m:'Star',e:'⭐'},{w:'ತಲೆ',m:'Head',e:'🗣️'},{w:'ತಾಯಿ',m:'Mother',e:'👩'},{w:'ತೋಟ',m:'Garden',e:'🌻'},{w:'ತುಪ್ಪ',m:'Ghee',e:'🧈'},{w:'ತೆಂಗಿನಕಾಯಿ',m:'Coconut',e:'🥥'},{w:'ತಣ್ಣನೆ',m:'Cool',e:'❄️'},{w:'ತೇರು',m:'Chariot',e:'🛕'}],
+'ದ':[{w:'ದೀಪ',m:'Lamp',e:'🪔'},{w:'ದನ',m:'Cattle',e:'🐄'},{w:'ದಾರಿ',m:'Path',e:'🛤️'},{w:'ದೇವರು',m:'God',e:'🙏'},{w:'ದಂತ',m:'Tooth',e:'🦷'},{w:'ದುಗ್ಧ',m:'Milk',e:'🥛'},{w:'ದೂರ',m:'Far',e:'📏'}],
+'ನ':[{w:'ನದಿ',m:'River',e:'🏞️'},{w:'ನಕ್ಷತ್ರ',m:'Star',e:'✨'},{w:'ನಾಯಿ',m:'Dog',e:'🐕'},{w:'ನೀರು',m:'Water',e:'💧'},{w:'ನಗು',m:'Smile',e:'😊'},{w:'ನೆಲ',m:'Ground',e:'🌍'},{w:'ನಾಲ್ಕು',m:'Four',e:'4️⃣'},{w:'ನೊಣ',m:'Fly',e:'🪰'},{w:'ನೃತ್ಯ',m:'Dance',e:'💃'}],
+'ಪ':[{w:'ಪಕ್ಷಿ',m:'Bird',e:'🐦'},{w:'ಪುಸ್ತಕ',m:'Book',e:'📚'},{w:'ಪೂಜೆ',m:'Worship',e:'🙏'},{w:'ಪಲ್ಲು',m:'Tooth',e:'🦷'},{w:'ಪಕ್ಕ',m:'Side',e:'↔️'},{w:'ಪತಂಗ',m:'Kite',e:'🪁'},{w:'ಪಾದ',m:'Foot',e:'🦶'},{w:'ಪ್ರೀತಿ',m:'Love',e:'❤️'}],
+'ಬ':[{w:'ಬಾಳೆ',m:'Banana',e:'🍌'},{w:'ಬೆಕ್ಕು',m:'Cat',e:'🐱'},{w:'ಬಾವಿ',m:'Well',e:'🕳️'},{w:'ಬಣ್ಣ',m:'Colour',e:'🎨'},{w:'ಬೆಳಕು',m:'Light',e:'💡'},{w:'ಬೆಟ್ಟ',m:'Hill',e:'⛰️'},{w:'ಬಾಲ',m:'Tail',e:'🐈'},{w:'ಬೀಜ',m:'Seed',e:'🌱'},{w:'ಬುದ್ಧಿ',m:'Wisdom',e:'🧠'}],
+'ಮ':[{w:'ಮರ',m:'Tree',e:'🌳'},{w:'ಮೀನು',m:'Fish',e:'🐟'},{w:'ಮನೆ',m:'Home',e:'🏠'},{w:'ಮಳೆ',m:'Rain',e:'🌧️'},{w:'ಮೊಗ್ಗು',m:'Bud',e:'🌸'},{w:'ಮಾವು',m:'Mango',e:'🥭'},{w:'ಮುಖ',m:'Face',e:'🙂'},{w:'ಮಕ್ಕಳು',m:'Children',e:'👶'},{w:'ಮಂಜು',m:'Fog',e:'🌫️'},{w:'ಮೇಘ',m:'Cloud',e:'☁️'}],
+'ಯ':[{w:'ಯಾನ',m:'Journey',e:'✈️'},{w:'ಯುದ್ಧ',m:'War',e:'⚔️'},{w:'ಯಜ್ಞ',m:'Ritual',e:'🔥'}],
+'ರ':[{w:'ರಾಮ',m:'Rama',e:'🏹'},{w:'ರವಿ',m:'Sun',e:'☀️'},{w:'ರಥ',m:'Chariot',e:'🛕'},{w:'ರಂಗು',m:'Colour',e:'🌈'},{w:'ರಸ',m:'Juice',e:'🧃'},{w:'ರಾತ್ರಿ',m:'Night',e:'🌃'},{w:'ರೈಲು',m:'Train',e:'🚂'}],
+'ಲ':[{w:'ಲತೆ',m:'Creeper',e:'🌿'},{w:'ಲಡ್ಡು',m:'Laddoo',e:'🟡'},{w:'ಲೋಟ',m:'Cup',e:'🥛'},{w:'ಲಕ್ಷ್ಮಿ',m:'Lakshmi',e:'🙏'},{w:'ಲಾಲಿ',m:'Lullaby',e:'🎵'}],
+'ವ':[{w:'ವನ',m:'Forest',e:'🌲'},{w:'ವಿಮಾನ',m:'Airplane',e:'✈️'},{w:'ವರ್ಷ',m:'Year',e:'📅'},{w:'ವಾಯು',m:'Air',e:'💨'},{w:'ವಿದ್ಯೆ',m:'Knowledge',e:'📚'},{w:'ವೃಕ್ಷ',m:'Tree',e:'🌳'},{w:'ವಸಂತ',m:'Spring',e:'🌸'}],
+'ಶ':[{w:'ಶಿವ',m:'Shiva',e:'🕉️'},{w:'ಶಾಲೆ',m:'School',e:'🏫'},{w:'ಶಂಖ',m:'Conch',e:'🐚'},{w:'ಶಕ್ತಿ',m:'Power',e:'💪'},{w:'ಶುಕ್ರ',m:'Venus',e:'✨'},{w:'ಶಾಂತಿ',m:'Peace',e:'☮️'}],
+'ಸ':[{w:'ಸೂರ್ಯ',m:'Sun',e:'☀️'},{w:'ಸರೋವರ',m:'Lake',e:'🏞️'},{w:'ಸಿಂಹ',m:'Lion',e:'🦁'},{w:'ಸೇಬು',m:'Apple',e:'🍎'},{w:'ಸಂಜೆ',m:'Evening',e:'🌆'},{w:'ಸ್ನೇಹ',m:'Friendship',e:'🤝'},{w:'ಸಂಗೀತ',m:'Music',e:'🎶'},{w:'ಸಮುದ್ರ',m:'Sea',e:'🌊'},{w:'ಸಕ್ಕರೆ',m:'Sugar',e:'🍬'}],
+'ಹ':[{w:'ಹೂವು',m:'Flower',e:'🌸'},{w:'ಹಸು',m:'Cow',e:'🐄'},{w:'ಹಕ್ಕಿ',m:'Bird',e:'🐦'},{w:'ಹಾಲು',m:'Milk',e:'🥛'},{w:'ಹುಲಿ',m:'Tiger',e:'🐯'},{w:'ಹಣ್ಣು',m:'Fruit',e:'🍎'},{w:'ಹಸಿರು',m:'Green',e:'🟢'},{w:'ಹಿಮ',m:'Snow',e:'❄️'},{w:'ಹಾವು',m:'Snake',e:'🐍'},{w:'ಹೆಜ್ಜೆ',m:'Step',e:'👣'}],
+'ಳ':[{w:'ಳಕ್ಕಿ',m:'Parrot',e:'🦜'}]
+};
+const LETTERS=Object.keys(LETTER_WORDS);
+const floatArea=document.getElementById('float-area'),snakeEl=document.getElementById('snake'),wordContainer=document.getElementById('wordContainer'),stackLabel=document.getElementById('stackLabel'),hint=document.getElementById('hint'),scoreEl=document.getElementById('score'),leftEl=document.getElementById('left'),eatenEl=document.getElementById('eaten'),eatenStat=document.getElementById('eatenStat'),resetBtn=document.getElementById('resetBtn'),winMsg=document.getElementById('winMsg'),loseMsg=document.getElementById('loseMsg'),modeText=document.getElementById('modeText'),btnL1=document.getElementById('btnL1'),btnL2=document.getElementById('btnL2'),canvas=document.getElementById('bg-canvas'),ctx=canvas.getContext('2d');
+let score=parseInt(localStorage.getItem('kc_score')||'0',10)||0,eatenCount=0,floatItems=[],gameOver=false,level=1,snake={x:80,y:200,speed:1.1},targetLetter=null;
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}window.addEventListener('resize',resize);resize();
+const particles=[],COLORS=['#ff4d6d','#ffd76a','#7bffb3','#6ecbff','#c77dff','#ff9e6d','#fff','#ff6bcb'];
+function random(a,b){return Math.random()*(b-a)+a}
+function explode(x,y,count=70,power=1){for(let i=0;i<count;i++){const ang=Math.random()*Math.PI*2,sp=random(2,8.5)*power;particles.push({x,y,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,life:1,decay:random(.014,.03),color:COLORS[(Math.random()*COLORS.length)|0],size:random(2,4.2),gravity:.07})}}
+function bigExplosion(x,y){explode(x,y,100,1.1);setTimeout(()=>explode(x+random(-25,25),y+random(-20,20),50,.85),70)}
+function updateFireworks(){for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.x+=p.vx;p.y+=p.vy;p.vy+=p.gravity;p.vx*=.985;p.life-=p.decay;if(p.life<=0)particles.splice(i,1)}}
+function drawFireworks(){ctx.fillStyle='rgba(7,7,26,.2)';ctx.fillRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{ctx.globalAlpha=Math.max(0,p.life);ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);ctx.fill()});ctx.globalAlpha=1}
+function visualSound(x,y){
+  // expanding rings
+  for(let i=0;i<3;i++){
+    setTimeout(()=>{
+      const ring=document.createElement('div');
+      ring.className='sound-ring';
+      ring.style.left=x+'px';ring.style.top=y+'px';
+      ring.style.borderColor=i===0?'rgba(255,215,100,.8)':i===1?'rgba(126,200,255,.7)':'rgba(200,120,255,.6)';
+      document.body.appendChild(ring);
+      setTimeout(()=>ring.remove(),950);
+    },i*120);
+  }
+  // floating notes
+  const notes=['♪','♫','♩','♬'];
+  for(let i=0;i<4;i++){
+    setTimeout(()=>{
+      const n=document.createElement('div');
+      n.className='sound-note';
+      n.textContent=notes[i%notes.length];
+      n.style.left=(x+random(-30,30))+'px';
+      n.style.top=(y+random(-10,10))+'px';
+      n.style.color=['#ffd76a','#7ec8ff','#d97bff','#7bffb3'][i%4];
+      document.body.appendChild(n);
+      setTimeout(()=>n.remove(),1150);
+    },i*90);
+  }
+}
+function speak(text,rate=.85,x,y){
+  if(typeof speechSynthesis==='undefined'||!text)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='kn-IN';u.rate=rate;u.pitch=1.05;
+  const voices=speechSynthesis.getVoices();
+  const kn=voices.find(v=>v.lang.startsWith('kn')||(v.name&&v.name.toLowerCase().includes('kannada')));
+  if(kn)u.voice=kn;
+  // visual sound effect at given position (or center of screen)
+  const sx = (typeof x==='number') ? x : window.innerWidth/2;
+  const sy = (typeof y==='number') ? y : window.innerHeight*0.55;
+  visualSound(sx,sy);
+  speechSynthesis.speak(u);
+}
+if(typeof speechSynthesis!=='undefined'){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}
+function createFloatingLetters(){floatArea.innerHTML='';floatItems=[];const w=window.innerWidth,h=window.innerHeight,topSafe=130,bottomSafe=175;LETTERS.forEach(ch=>{const meta=LETTER_META[ch]||{r:1};const el=document.createElement('div');el.className='float-letter r'+meta.r;el.textContent=ch;el.dataset.letter=ch;const x=random(15,w-75),y=random(topSafe,h-bottomSafe-65);el.style.left=x+'px';el.style.top=y+'px';floatArea.appendChild(el);floatItems.push({el,x,y,vx:random(-.28,.28),vy:random(-.25,.25),letter:ch,rarity:meta.r,points:POINTS[meta.r],used:false,eaten:false})});updateStats()}
+function updateFloating(){if(gameOver)return;const w=window.innerWidth,h=window.innerHeight,topSafe=125,bottomSafe=170;floatItems.forEach(item=>{if(item.used||item.eaten||item.el.classList.contains('dragging'))return;item.x+=item.vx;item.y+=item.vy;if(item.x<8||item.x>w-70)item.vx*=-1;if(item.y<topSafe||item.y>h-bottomSafe-65)item.vy*=-1;item.x=Math.max(8,Math.min(w-70,item.x));item.y=Math.max(topSafe,Math.min(h-bottomSafe-65,item.y));item.el.style.left=item.x+'px';item.el.style.top=item.y+'px'})}
+function getAliveLetters(){return floatItems.filter(i=>!i.used&&!i.eaten)}
+function updateSnake(){if(gameOver||level!==2)return;const alive=getAliveLetters();if(!alive.length)return;if(!targetLetter||targetLetter.used||targetLetter.eaten){let best=null,bestScore=-1e9;alive.forEach(it=>{const dx=it.x-snake.x,dy=it.y-snake.y,dist=Math.sqrt(dx*dx+dy*dy)||1;const sc=(it.rarity*18)-dist*.55;if(sc>bestScore){bestScore=sc;best=it}});targetLetter=best}if(!targetLetter)return;const tx=targetLetter.x+29,ty=targetLetter.y+29,dx=tx-snake.x,dy=ty-snake.y,dist=Math.sqrt(dx*dx+dy*dy)||1,sp=snake.speed*(1+(LETTERS.length-alive.length)*.035);snake.x+=(dx/dist)*sp;snake.y+=(dy/dist)*sp;snake.x=Math.max(20,Math.min(window.innerWidth-40,snake.x));snake.y=Math.max(130,Math.min(window.innerHeight-160,snake.y));snakeEl.style.left=(snake.x-24)+'px';snakeEl.style.top=(snake.y-24)+'px';if(dist<38)eatLetter(targetLetter)}
+function eatLetter(item){if(item.eaten||item.used)return;item.eaten=true;item.el.classList.add('eaten');eatenCount++;targetLetter=null;snakeEl.classList.remove('chomping');void snakeEl.offsetWidth;snakeEl.classList.add('chomping');explode(snake.x,snake.y,35,.7);updateStats();checkEnd()}
+function updateStats(){scoreEl.textContent=score;leftEl.textContent=getAliveLetters().length;eatenEl.textContent=eatenCount}
+function checkEnd(){const alive=getAliveLetters().length;if(alive===0){gameOver=true;document.getElementById('winText').textContent=level===2?'You beat the snake and cleared the board!':'You explored all the letters!';setTimeout(()=>winMsg.classList.add('show'),400)}else if(level===2&&eatenCount>=12){gameOver=true;setTimeout(()=>loseMsg.classList.add('show'),300)}}
+let dragging=null,startY=0,currentX=0,currentY=0,hasTriggered=false,activePointerId=null;const PULL_THRESHOLD=85;
+function getPoint(e){if(typeof e.clientX==='number')return{x:e.clientX,y:e.clientY};if(e.touches&&e.touches[0])return{x:e.touches[0].clientX,y:e.touches[0].clientY};return{x:currentX,y:currentY}}
+function onPointerDown(e){if(gameOver)return;const target=e.target.closest('.float-letter');if(!target||target.classList.contains('used')||target.classList.contains('eaten')||dragging)return;e.preventDefault();e.stopPropagation();if(e.pointerId!=null&&target.setPointerCapture){try{target.setPointerCapture(e.pointerId);activePointerId=e.pointerId}catch(_){}}dragging=target;hasTriggered=false;const pt=getPoint(e);startY=pt.y;currentX=pt.x;currentY=pt.y;target.classList.add('dragging')}
+function onPointerMove(e){if(!dragging)return;if(activePointerId!=null&&e.pointerId!=null&&e.pointerId!==activePointerId)return;e.preventDefault();const pt=getPoint(e);currentX=pt.x;currentY=pt.y;dragging.style.left=(currentX-29)+'px';dragging.style.top=(currentY-29)+'px';const dy=currentY-startY;dragging.style.transform=`scale(${1+Math.min(Math.max(dy,0)/380,.32)})`;if(dy>PULL_THRESHOLD*.5){dragging.style.borderColor='#ff6b6b';dragging.style.boxShadow='0 0 28px rgba(255,80,80,.9)'}}
+function finishDrag(success){if(!dragging)return;const letter=dragging.dataset.letter;const item=floatItems.find(i=>i.el===dragging);if(success&&!hasTriggered&&item&&!item.eaten){hasTriggered=true;bigExplosion(currentX,currentY);item.used=true;dragging.classList.add('used');dragging.classList.remove('dragging');dragging.style.transform='';dragging.style.borderColor='';dragging.style.boxShadow='';score+=item.points;localStorage.setItem('kc_score',score);updateStats();showWord(letter,item.points);hint.classList.add('hidden');checkEnd()}else{dragging.classList.remove('dragging');dragging.style.transform='';dragging.style.borderColor='';dragging.style.boxShadow='';if(item&&!item.used&&!item.eaten){dragging.style.left=item.x+'px';dragging.style.top=item.y+'px'}}if(activePointerId!=null&&dragging.releasePointerCapture){try{dragging.releasePointerCapture(activePointerId)}catch(_){}}activePointerId=null;dragging=null}
+function onPointerUp(e){if(!dragging)return;e.preventDefault();finishDrag(currentY-startY>PULL_THRESHOLD)}
+function onPointerCancel(){if(dragging)finishDrag(false)}
+floatArea.addEventListener('pointerdown',onPointerDown,{passive:false});window.addEventListener('pointermove',onPointerMove,{passive:false});window.addEventListener('pointerup',onPointerUp,{passive:false});window.addEventListener('pointercancel',onPointerCancel,{passive:false});
+function showWord(letter,pts){
+  const options=LETTER_WORDS[letter];
+  if(!options||!options.length)return;
+  const pick=options[Math.floor(Math.random()*options.length)];
+  const{w:word,m:meaning,e:emoji}=pick;
+
+  stackLabel.style.display='block';
+  const card=document.createElement('div');
+  card.className='word-card';
+
+  const startEl=document.createElement('div');
+  startEl.className='start-letter';
+  startEl.textContent=letter;
+  card.appendChild(startEl);
+
+  if(emoji){
+    const em=document.createElement('div');
+    em.className='word-emoji';
+    em.textContent=emoji;
+    card.appendChild(em);
+  }
+
+  const full=document.createElement('div');
+  full.className='full-word';
+  full.textContent=word;
+  // animated sound waves next to the word while speaking
+  const waves=document.createElement('span');
+  waves.className='speaking-waves';
+  waves.innerHTML='<span></span><span></span><span></span><span></span>';
+  full.appendChild(waves);
+  card.appendChild(full);
+
+  const meanEl=document.createElement('div');
+  meanEl.className='meaning';
+  meanEl.textContent=meaning;
+  card.appendChild(meanEl);
+
+  const ptsEl=document.createElement('div');
+  ptsEl.className='points-tag';
+  ptsEl.textContent='+'+pts+' points';
+  card.appendChild(ptsEl);
+
+  wordContainer.innerHTML='';
+  wordContainer.appendChild(card);
+
+  // after card is in DOM, get position for visual sound
+  setTimeout(()=>{
+    const r=card.getBoundingClientRect();
+    const cx=r.left+r.width/2, cy=r.top+r.height/2;
+    explode(cx,cy,28,.5);
+    // speak letter with visual effect
+    speak(letter,.8,cx,cy);
+    // speak word a bit later
+    setTimeout(()=>{
+      speak(word,.9,cx,cy);
+      // remove waves after speech roughly finishes
+      setTimeout(()=>{if(waves.parentNode)waves.remove()},1600);
+    },850);
+  },320);
+}
+function setLevel(lv){level=lv;btnL1.classList.toggle('active',lv===1);btnL2.classList.toggle('active',lv===2);modeText.textContent=lv===1?'Level 1 • Free Learning':'Level 2 • Snake Challenge';eatenStat.style.display=lv===2?'inline-flex':'none';snakeEl.classList.toggle('show',lv===2);hint.innerHTML=lv===1?'ಅಕ್ಷರವನ್ನು ಕೆಳಗೆ ಎಳೆಯಿರಿ<br>Pull any letter down to learn':'ಅಕ್ಷರಗಳನ್ನು ಬೇಗನೆ ಎಳೆಯಿರಿ!<br>Pull before the snake reaches them';fullReset()}
+btnL1.addEventListener('click',()=>setLevel(1));btnL2.addEventListener('click',()=>setLevel(2));
+function fullReset(){gameOver=false;eatenCount=0;targetLetter=null;snake.x=60;snake.y=240;snakeEl.style.left=(snake.x-24)+'px';snakeEl.style.top=(snake.y-24)+'px';wordContainer.innerHTML='';stackLabel.style.display='none';hint.classList.remove('hidden');winMsg.classList.remove('show');loseMsg.classList.remove('show');particles.length=0;createFloatingLetters();updateStats()}
+resetBtn.addEventListener('click',fullReset);
+document.getElementById('resetScoreBtn').addEventListener('click',function(){
+  if(confirm('Reset total score to 0?\nಅಂಕಗಳನ್ನು ಸೊನ್ನೆಗೆ ಮರುಹೊಂದಿಸಬೇಕೇ?')){
+    score=0;
+    localStorage.setItem('kc_score',0);
+    updateStats();
+  }
+});document.getElementById('winReset').addEventListener('click',fullReset);document.getElementById('loseReset').addEventListener('click',fullReset);
+function loop(){updateFireworks();drawFireworks();updateFloating();if(level===2)updateSnake();requestAnimationFrame(loop)}
+createFloatingLetters();snakeEl.style.left=(snake.x-24)+'px';snakeEl.style.top=(snake.y-24)+'px';ctx.fillStyle='#07071a';ctx.fillRect(0,0,canvas.width,canvas.height);loop();
+</script>
+</body>
+</html>
