@@ -54,6 +54,8 @@ One shared engine ([engine.js](engine.js)), used by every direction, parameteriz
 /kannada-gujarati/ → Gujarati → Kannada
 engine.js          → shared by all, direction-agnostic
 style.css          → shared by all (per-lang font rules: bn, kn, ml, kok, or, ta, gu)
+fun.js/.css/-data.js/-strings.js → the Kannada letter game, shared by the six
+                     directions that teach Kannada
 ```
 
 Folder = the language being **taught**. The five "learn Kannada" directions for non-Bengali audiences use distinct folders (`/kannada/`, `/kannada-konkani/`, `/kannada-odia/`, `/kannada-tamil/`, `/kannada-gujarati/`) since the root is the Bengali flagship.
@@ -61,6 +63,12 @@ Folder = the language being **taught**. The five "learn Kannada" directions for 
 ### Adding a language pair
 
 Two new subfolders (Kannada-teaches-target and target-teaches-Kannada), each with `config.js` + `data.js` + `favicon.svg` + 4 HTML pages (8 pages total), one shared `[lang="…"]` font rule in [style.css](style.css), two new entries in `DIRECTIONS` + `currentBase()` in [engine.js](engine.js), two new entries in [books-sidebar.js](books-sidebar.js), and 8 URLs in [sitemap.xml](sitemap.xml). `engine.js` rendering and `style.css` layout are reused unchanged.
+
+The target-teaches-Kannada side also gets `fun.html` (a 5th page and bottom-nav item) plus a UI-string block in [fun-strings.js](fun-strings.js) keyed by `uiLang`, and its own `FUN_DIRECTIONS` entry in [fun.js](fun.js).
+
+### Fun with Kannada (`fun.html`)
+
+A letter game on the six directions whose target is Kannada: 34 Kannada letters drift across a dark board, and dragging one downwards teaches a word starting with it — spoken aloud, with the emoji as the meaning and the nearest letter in the learner's own script taken from that direction's `data.js`. Rarer letters score more (5/10/15/25) and the total persists per direction. Level 2 adds a snake that eats the letters left floating. Word data ([fun-data.js](fun-data.js)) is the same file the Kannada Wordle site uses; no English is shown, so nothing needs translating per direction beyond the UI strings.
 
 ## Stack
 
