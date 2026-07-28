@@ -26,6 +26,8 @@ h1{font-size:1.05rem;font-weight:700;color:#ffd76a;text-shadow:0 0 12px rgba(255
 .float-letter.used{opacity:.18;filter:grayscale(.8);pointer-events:none;transform:scale(.8)!important}
 .float-letter.eaten{opacity:0;transform:scale(.3)!important;pointer-events:none;transition:all .35s ease}
 .float-letter.dragging{z-index:100;box-shadow:0 0 26px rgba(255,200,60,.8),0 8px 22px rgba(0,0,0,.5)!important}
+.float-letter.popping{animation:letterPop .55s ease}
+@keyframes letterPop{0%{transform:scale(1);filter:brightness(1)}30%{transform:scale(1.5);filter:brightness(2.4)}60%{transform:scale(.92)}100%{transform:scale(1);filter:brightness(1)}}
 #snake{position:absolute;width:48px;height:48px;display:none;align-items:center;justify-content:center;font-size:2.2rem;z-index:30;pointer-events:none;filter:drop-shadow(0 0 8px rgba(50,220,80,.6))}
 #snake.show{display:flex}
 #snake.chomping{animation:chomp .25s ease}
@@ -281,6 +283,21 @@ document.getElementById('resetScoreBtn').addEventListener('click',function(){
 });document.getElementById('winReset').addEventListener('click',fullReset);document.getElementById('loseReset').addEventListener('click',fullReset);
 function loop(){updateFireworks();drawFireworks();updateFloating();if(level===2)updateSnake();requestAnimationFrame(loop)}
 createFloatingLetters();snakeEl.style.left=(snake.x-24)+'px';snakeEl.style.top=(snake.y-24)+'px';ctx.fillStyle='#07071a';ctx.fillRect(0,0,canvas.width,canvas.height);loop();
+
+// Every few seconds one random letter pops with a firework — pure spectacle,
+// the letter stays in play and nothing is scored.
+function randomPop(){
+  if(!gameOver){
+    const alive=getAliveLetters().filter(i=>!i.el.classList.contains('dragging'));
+    if(alive.length){
+      const it=alive[(Math.random()*alive.length)|0];
+      explode(it.x+29,it.y+29,45,.9);
+      it.el.classList.remove('popping');void it.el.offsetWidth;it.el.classList.add('popping');
+    }
+  }
+  setTimeout(randomPop,random(2200,5200));
+}
+setTimeout(randomPop,random(1500,3000));
 </script>
 </body>
 </html>
