@@ -28,6 +28,8 @@ h1{font-size:1.05rem;font-weight:700;color:#ffd76a;text-shadow:0 0 12px rgba(255
 .float-letter.dragging{z-index:100;box-shadow:0 0 26px rgba(255,200,60,.8),0 8px 22px rgba(0,0,0,.5)!important}
 .float-letter.popping{animation:letterPop .55s ease}
 @keyframes letterPop{0%{transform:scale(1);filter:brightness(1)}30%{transform:scale(1.5);filter:brightness(2.4)}60%{transform:scale(.92)}100%{transform:scale(1);filter:brightness(1)}}
+.storm-flash{position:fixed;inset:0;z-index:70;pointer-events:none;background:rgba(190,225,255,.5);animation:stormFlash .5s ease-out forwards}
+@keyframes stormFlash{0%{opacity:.9}22%{opacity:.15}40%{opacity:.65}100%{opacity:0}}
 #snake{position:absolute;width:48px;height:48px;display:none;align-items:center;justify-content:center;font-size:2.2rem;z-index:30;pointer-events:none;filter:drop-shadow(0 0 8px rgba(50,220,80,.6))}
 #snake.show{display:flex}
 #snake.chomping{animation:chomp .25s ease}
@@ -281,7 +283,55 @@ document.getElementById('resetScoreBtn').addEventListener('click',function(){
     updateStats();
   }
 });document.getElementById('winReset').addEventListener('click',fullReset);document.getElementById('loseReset').addEventListener('click',fullReset);
-function loop(){updateFireworks();drawFireworks();updateFloating();if(level===2)updateSnake();requestAnimationFrame(loop)}
+function loop(){updateFireworks();drawFireworks();drawBolts();updateFloating();if(level===2)updateSnake();requestAnimationFrame(loop)}
+// Now and then a storm: a flood of jagged bolts across the board, plus a
+// screen flash. Like the pops, it is spectacle only — nothing is scored.
+const bolts=[];
+function makeBolt(startX,startY,len,width){
+  const pts=[{x:startX,y:startY}];let cx=startX,cy=startY;
+  while(cy<startY+len&&cy<canvas.height){cy+=random(16,40);cx+=random(-30,30);pts.push({x:cx,y:cy})}
+  bolts.push({pts,life:1,decay:random(.06,.12),w:width});
+  return pts;
+}
+function strike(){
+  const pts=makeBolt(random(10,canvas.width-10),0,random(canvas.height*.6,canvas.height),random(1.6,3.4));
+  // one or two branches peeling off partway down
+  const branches=Math.random()<.65?2:1;
+  for(let i=0;i<branches;i++){
+    const from=pts[(random(2,pts.length-1))|0];
+    if(from)makeBolt(from.x,from.y,random(60,180),random(.8,1.6));
+  }
+}
+function stormFlash(){
+  const f=document.createElement('div');
+  f.className='storm-flash';
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),520);
+}
+function drawBolts(){
+  for(let i=bolts.length-1;i>=0;i--){
+    const b=bolts[i];
+    ctx.save();
+    ctx.globalAlpha=Math.max(0,b.life);
+    ctx.strokeStyle='#e8f6ff';ctx.lineWidth=b.w;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.shadowColor='#8fd0ff';ctx.shadowBlur=18;
+    ctx.beginPath();
+    b.pts.forEach((p,j)=>j?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+    ctx.stroke();
+    ctx.restore();
+    b.life-=b.decay;
+    if(b.life<=0)bolts.splice(i,1);
+  }
+  ctx.globalAlpha=1;
+}
+function lightningStorm(){
+  const n=5+((Math.random()*5)|0);
+  for(let i=0;i<n;i++)setTimeout(strike,i*random(70,220));
+  stormFlash();
+  setTimeout(stormFlash,random(400,900));
+  setTimeout(lightningStorm,random(18000,45000));
+}
+setTimeout(lightningStorm,random(6000,14000));
 createFloatingLetters();snakeEl.style.left=(snake.x-24)+'px';snakeEl.style.top=(snake.y-24)+'px';ctx.fillStyle='#07071a';ctx.fillRect(0,0,canvas.width,canvas.height);loop();
 
 // Every few seconds one random letter pops with a firework — pure spectacle,
