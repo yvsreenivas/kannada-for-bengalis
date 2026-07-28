@@ -86,20 +86,10 @@ header .tagline { color: var(--muted); margin: 4px 0 0; font-size: .95rem; }
 }
 .lang-switcher:focus { outline: none; border-color: var(--blue); }
 
-/* Dashed pill linking out to the standalone fullscreen letter game. */
-.fullscreen-link {
-  display: block;
-  width: fit-content;
-  margin: 18px auto 0;
-  padding: 9px 18px;
-  background: var(--card);
-  border: 2px dashed var(--border);
-  border-radius: 999px;
-  color: var(--orange);
-  font-size: .85rem; font-weight: 700;
-  text-decoration: none;
-}
-.fullscreen-link:active { background: #fce9a0; }
+/* The standalone fullscreen letter game, dashed so it reads as an extra. */
+.module-card.fullscreen-card { border-style: dashed; }
+.module-card.fullscreen-card .m-icon { background: rgba(180, 83, 9, 0.12); }
+.module-card.fullscreen-card::before { background: var(--orange); }
 
 nav.bottom {
   position: fixed; bottom: 0; left: 0; right: 0;
