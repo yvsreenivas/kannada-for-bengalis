@@ -1,5 +1,11 @@
 {
   "redirects": [
-    { "source": "/", "destination": "/bengali/", "permanent": false }
+    { "source": "/", "destination": "/bengali/", "permanent": false },
+    { "source": "/fun.html", "destination": "/kannada-letter-pull.html", "permanent": false },
+    { "source": "/kannada/fun.html", "destination": "/kannada-letter-pull.html", "permanent": false },
+    { "source": "/kannada-gujarati/fun.html", "destination": "/kannada-letter-pull.html", "permanent": false },
+    { "source": "/kannada-konkani/fun.html", "destination": "/kannada-letter-pull.html", "permanent": false },
+    { "source": "/kannada-odia/fun.html", "destination": "/kannada-letter-pull.html", "permanent": false },
+    { "source": "/kannada-tamil/fun.html", "destination": "/kannada-letter-pull.html", "permanent": false }
   ]
 }
