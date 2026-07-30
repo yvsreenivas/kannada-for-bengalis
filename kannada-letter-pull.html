@@ -30,6 +30,11 @@ h1{font-size:1.05rem;font-weight:700;color:#ffd76a;text-shadow:0 0 12px rgba(255
 .float-letter.dragging{z-index:100;box-shadow:0 0 26px rgba(255,200,60,.8),0 8px 22px rgba(0,0,0,.5)!important}
 .float-letter.popping{animation:letterPop .55s ease}
 @keyframes letterPop{0%{transform:scale(1);filter:brightness(1)}30%{transform:scale(1.5);filter:brightness(2.4)}60%{transform:scale(.92)}100%{transform:scale(1);filter:brightness(1)}}
+.site-back{position:fixed;top:9px;left:9px;z-index:55;display:inline-flex;align-items:center;gap:6px;
+padding:7px 14px;border-radius:999px;background:rgba(10,10,30,.85);border:1px solid rgba(201,162,39,.45);
+color:#ffd76a;font-size:.76rem;font-weight:600;text-decoration:none;max-width:46vw;overflow:hidden;white-space:nowrap}
+.site-more{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.site-more a{color:#ffd76a;font-size:.82rem;text-decoration:none;border-bottom:1px dashed rgba(255,215,100,.45);padding-bottom:1px}
 .toast{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:75;max-width:86%;
 padding:10px 16px;border-radius:12px;background:rgba(10,10,30,.95);border:1px solid rgba(201,162,39,.5);
 color:#ffe9a0;font-size:.8rem;text-align:center;line-height:1.4;pointer-events:none}
@@ -95,6 +100,7 @@ button:active{transform:translateY(2px);box-shadow:0 1px 0 #7b1e2b}
   <div><span class="dot" style="background:#d97bff"></span> Rare +15</div>
   <div><span class="dot" style="background:#ff6b6b"></span> Legendary +25</div>
 </div>
+<a class="site-back" id="siteBack" href="/">←</a>
 <div id="float-area"></div>
 <div id="snake">🐍</div>
 <div class="hint" id="hint">ಅಕ್ಷರವನ್ನು ಕೆಳಗೆ ಎಳೆಯಿರಿ<br>Pull any letter down to learn</div>
@@ -106,8 +112,8 @@ button:active{transform:translateY(2px);box-shadow:0 1px 0 #7b1e2b}
   <button id="resetBtn">ಮರುಹೊಂದಿಸಿ • Reset</button>
   <button id="resetScoreBtn" style="border-color:#ff6b6b;color:#ffb0b0">⭐ Reset Score</button>
 </div>
-<div class="overlay-msg" id="winMsg"><h2>🎉 ಅಭಿನಂದನೆಗಳು!</h2><p id="winText" lang="en">You cleared the board!</p><button id="winReset">Play Again</button></div>
-<div class="overlay-msg" id="loseMsg"><h2>🐍 Snake won!</h2><p lang="en">The snake ate too many letters.<br>Try Level 1 first, then come back!</p><button id="loseReset">Try Again</button></div>
+<div class="overlay-msg" id="winMsg"><h2>🎉 ಅಭಿನಂದನೆಗಳು!</h2><p id="winText" lang="en">You cleared the board!</p><button id="winReset">Play Again</button><div class="site-more" id="moreWin"></div></div>
+<div class="overlay-msg" id="loseMsg"><h2>🐍 Snake won!</h2><p lang="en">The snake ate too many letters.<br>Try Level 1 first, then come back!</p><button id="loseReset">Try Again</button><div class="site-more" id="moreLose"></div></div>
 <script>
 const LETTER_META={'ಅ':{r:1},'ಆ':{r:1},'ಇ':{r:1},'ಈ':{r:1},'ಉ':{r:1},'ಊ':{r:1},'ಎ':{r:1},'ಏ':{r:2},'ಐ':{r:2},'ಒ':{r:1},'ಓ':{r:2},'ಔ':{r:3},'ಕ':{r:1},'ಖ':{r:3},'ಗ':{r:1},'ಘ':{r:4},'ಚ':{r:2},'ಛ':{r:3},'ಜ':{r:1},'ಟ':{r:3},'ತ':{r:1},'ದ':{r:1},'ನ':{r:1},'ಪ':{r:1},'ಬ':{r:1},'ಮ':{r:1},'ಯ':{r:2},'ರ':{r:1},'ಲ':{r:1},'ವ':{r:1},'ಶ':{r:2},'ಸ':{r:1},'ಹ':{r:1}};
 const POINTS={1:5,2:10,3:15,4:25};
@@ -380,6 +386,34 @@ function lightningStorm(){
   setTimeout(lightningStorm,random(18000,45000));
 }
 setTimeout(lightningStorm,random(6000,14000));
+// The file is shared by both sites, so the way back is chosen at runtime.
+// On DipaMoy we also try to return to the direction the player came from.
+(function(){
+  const dipa=/dipamoy/i.test(location.hostname);
+  let base='/';
+  if(dipa){
+    try{
+      const r=new URL(document.referrer);
+      const m=r.origin===location.origin&&r.pathname.match(/^\/[a-z][a-z-]*\//);
+      if(m)base=m[0];
+    }catch(_){}
+  }
+  // DipaMoy's own pages are written in the learner's language, so keep these
+  // wayfinding labels in English there and in Kannada on Ogatu.
+  const links=dipa
+    ?[['DipaMoy',base],['Letters',base+'letters.html'],['Phrases',base+'phrases.html'],['Practice',base+'practice.html']]
+    :[['ಒಗಟು',base],['ವರ್ಡಲ್','/'],['ಪದ ಹುಡುಕಾಟ','/wordsearch/'],['ಪದಬಂಧ','/crossword/'],['ಒಗಟುಗಳು','/riddles/']];
+  const back=document.getElementById('siteBack');
+  back.href=links[0][1];
+  back.textContent='← '+links[0][0];
+  [['moreWin'],['moreLose']].forEach(([id])=>{
+    const box=document.getElementById(id);
+    links.slice(1).forEach(([label,href])=>{
+      const a=document.createElement('a');
+      a.href=href;a.textContent=label;box.appendChild(a);
+    });
+  });
+})();
 createFloatingLetters();snakeEl.style.left=(snake.x-24)+'px';snakeEl.style.top=(snake.y-24)+'px';ctx.fillStyle='#07071a';ctx.fillRect(0,0,canvas.width,canvas.height);loop();
 
 // Every few seconds one random letter pops with a firework — pure spectacle,
