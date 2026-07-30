@@ -4,6 +4,20 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>ಕನ್ನಡ ಅಕ್ಷರ ಆಟ · Kannada Letter Game</title>
+
+<!-- Google tag (gtag.js). Served from kannadawordle.xyz and dipamoy.site,
+     so the property is chosen from the hostname. -->
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments)}
+var GA_ID=/dipamoy/i.test(location.hostname)?'G-CP31P1YTKS':'G-362FD5EJ54';
+var gaScript=document.createElement('script');
+gaScript.async=true;
+gaScript.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;
+document.head.appendChild(gaScript);
+gtag('js',new Date());
+gtag('config',GA_ID);
+</script>
 <meta name="description" content="ತೇಲುವ ಕನ್ನಡ ಅಕ್ಷರವನ್ನು ಕೆಳಕ್ಕೆ ಎಳೆಯಿರಿ, ಆ ಅಕ್ಷರದಿಂದ ಶುರುವಾಗುವ ಪದ ಕಲಿಯಿರಿ. Pull a floating Kannada letter down and learn a word that starts with it — spoken aloud, with its meaning.">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
@@ -158,6 +172,8 @@ let score=parseInt(localStorage.getItem('kc_score')||'0',10)||0,eatenCount=0,flo
 function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}window.addEventListener('resize',resize);resize();
 const particles=[],COLORS=['#ff4d6d','#ffd76a','#7bffb3','#6ecbff','#c77dff','#ff9e6d','#fff','#ff6bcb'];
 function random(a,b){return Math.random()*(b-a)+a}
+let pullCount=0;
+function track(name,params){try{if(typeof gtag==='function')gtag('event',name,params||{})}catch(_){}}
 function tileSize(){return window.innerHeight<560?44:58}
 function bounds(){
   const w=window.innerWidth,h=window.innerHeight,t=tileSize();
@@ -234,7 +250,7 @@ function getAliveLetters(){return floatItems.filter(i=>!i.used&&!i.eaten)}
 function updateSnake(){if(gameOver||level!==2)return;const alive=getAliveLetters();if(!alive.length)return;if(!targetLetter||targetLetter.used||targetLetter.eaten){let best=null,bestScore=-1e9;alive.forEach(it=>{const dx=it.x-snake.x,dy=it.y-snake.y,dist=Math.sqrt(dx*dx+dy*dy)||1;const sc=(it.rarity*18)-dist*.55;if(sc>bestScore){bestScore=sc;best=it}});targetLetter=best}if(!targetLetter)return;const b=bounds(),tx=targetLetter.x+b.t/2,ty=targetLetter.y+b.t/2,dx=tx-snake.x,dy=ty-snake.y,dist=Math.sqrt(dx*dx+dy*dy)||1,sp=snake.speed*(1+(LETTERS.length-alive.length)*.035);snake.x+=(dx/dist)*sp;snake.y+=(dy/dist)*sp;snake.x=Math.max(24,Math.min(window.innerWidth-24,snake.x));snake.y=Math.max(b.minY,Math.min(b.maxY+b.t,snake.y));snakeEl.style.left=(snake.x-24)+'px';snakeEl.style.top=(snake.y-24)+'px';if(dist<b.t*.66)eatLetter(targetLetter)}
 function eatLetter(item){if(item.eaten||item.used)return;item.eaten=true;item.el.classList.add('eaten');eatenCount++;targetLetter=null;snakeEl.classList.remove('chomping');void snakeEl.offsetWidth;snakeEl.classList.add('chomping');explode(snake.x,snake.y,35,.7);updateStats();checkEnd()}
 function updateStats(){scoreEl.textContent=score;leftEl.textContent=getAliveLetters().length;eatenEl.textContent=eatenCount}
-function checkEnd(){const alive=getAliveLetters().length;if(alive===0){gameOver=true;document.getElementById('winText').textContent=level===2?'You beat the snake and cleared the board!':'You explored every letter on the board!';setTimeout(()=>winMsg.classList.add('show'),400)}else if(level===2&&eatenCount>=12){gameOver=true;setTimeout(()=>loseMsg.classList.add('show'),300)}}
+function checkEnd(){const alive=getAliveLetters().length;if(alive===0){gameOver=true;track('game_end',{result:'cleared',level:level,score:score});document.getElementById('winText').textContent=level===2?'You beat the snake and cleared the board!':'You explored every letter on the board!';setTimeout(()=>winMsg.classList.add('show'),400)}else if(level===2&&eatenCount>=12){gameOver=true;track('game_end',{result:'snake_won',level:level,score:score});setTimeout(()=>loseMsg.classList.add('show'),300)}}
 let dragging=null,startY=0,currentX=0,currentY=0,hasTriggered=false,activePointerId=null;const PULL_THRESHOLD=85;
 function getPoint(e){if(typeof e.clientX==='number')return{x:e.clientX,y:e.clientY};if(e.touches&&e.touches[0])return{x:e.touches[0].clientX,y:e.touches[0].clientY};return{x:currentX,y:currentY}}
 function onPointerDown(e){if(gameOver)return;const target=e.target.closest('.float-letter');if(!target||target.classList.contains('used')||target.classList.contains('eaten')||dragging)return;e.preventDefault();e.stopPropagation();if(e.pointerId!=null&&target.setPointerCapture){try{target.setPointerCapture(e.pointerId);activePointerId=e.pointerId}catch(_){}}dragging=target;hasTriggered=false;const pt=getPoint(e);startY=pt.y;currentX=pt.x;currentY=pt.y;target.classList.add('dragging')}
@@ -266,6 +282,8 @@ floatArea.addEventListener('keydown',e=>{
   pullLetter(el);
 });
 function showWord(letter,pts){
+  pullCount++;
+  if(pullCount===1)track('first_letter_pull');
   const options=LETTER_WORDS[letter];
   if(!options||!options.length)return;
   const pick=options[Math.floor(Math.random()*options.length)];
@@ -325,7 +343,7 @@ function showWord(letter,pts){
     },850);
   },320);
 }
-function setLevel(lv){level=lv;btnL1.classList.toggle('active',lv===1);btnL2.classList.toggle('active',lv===2);modeText.textContent=lv===1?'Level 1 • Free Learning':'Level 2 • Snake Challenge';eatenStat.style.display=lv===2?'inline-flex':'none';snakeEl.classList.toggle('show',lv===2);hint.innerHTML=lv===1?'ಅಕ್ಷರವನ್ನು ಕೆಳಗೆ ಎಳೆಯಿರಿ<br>Pull any letter down to learn':'ಅಕ್ಷರಗಳನ್ನು ಬೇಗನೆ ಎಳೆಯಿರಿ!<br>Pull before the snake reaches them';fullReset()}
+function setLevel(lv){if(lv===2&&level!==2)track('level_2_start');level=lv;btnL1.classList.toggle('active',lv===1);btnL2.classList.toggle('active',lv===2);modeText.textContent=lv===1?'Level 1 • Free Learning':'Level 2 • Snake Challenge';eatenStat.style.display=lv===2?'inline-flex':'none';snakeEl.classList.toggle('show',lv===2);hint.innerHTML=lv===1?'ಅಕ್ಷರವನ್ನು ಕೆಳಗೆ ಎಳೆಯಿರಿ<br>Pull any letter down to learn':'ಅಕ್ಷರಗಳನ್ನು ಬೇಗನೆ ಎಳೆಯಿರಿ!<br>Pull before the snake reaches them';fullReset()}
 btnL1.addEventListener('click',()=>setLevel(1));btnL2.addEventListener('click',()=>setLevel(2));
 function fullReset(){gameOver=false;eatenCount=0;targetLetter=null;snake.x=60;snake.y=240;snakeEl.style.left=(snake.x-24)+'px';snakeEl.style.top=(snake.y-24)+'px';wordContainer.innerHTML='';stackLabel.style.display='none';hint.classList.remove('hidden');winMsg.classList.remove('show');loseMsg.classList.remove('show');particles.length=0;createFloatingLetters();updateStats()}
 resetBtn.addEventListener('click',fullReset);
