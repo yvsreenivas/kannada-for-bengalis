@@ -1,0 +1,2 @@
+# Video exports are never part of the deployed site
+*.mp4

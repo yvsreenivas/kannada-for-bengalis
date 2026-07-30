@@ -1,1 +1,4 @@
 .vercel
+
+# Video exports (reels, screen recordings) — never part of the site
+*.mp4
