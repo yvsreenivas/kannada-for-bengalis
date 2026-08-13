@@ -68,6 +68,7 @@
   </div>
   <div id="books-widget"></div>
   <div id="wordle-widget"></div>
+  <div id="translator-widget"></div>
 </main>
 <nav class="bottom">
   <a href="index.html" class="active"><span class="nav-icon">🏠</span>ಮನೆ</a>
@@ -79,11 +80,14 @@
 <script src="data.js"></script>
 <script src="../books-sidebar.js?v=20260719b"></script>
 <script src="../wordle-promo.js"></script>
+<script src="../translator-promo.js"></script>
 <script src="../engine.js?v=2"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const widget = document.getElementById('books-widget');
     if (widget) widget.innerHTML = renderBooksSidebar();
+    const translatorWidget = document.getElementById('translator-widget');
+    if (translatorWidget) translatorWidget.innerHTML = renderTranslatorPromo();
     const wordleWidget = document.getElementById('wordle-widget');
     if (wordleWidget) wordleWidget.innerHTML = renderWordlePromo();
   });
