@@ -315,27 +315,63 @@
     return /\.html$/.test(seg) ? seg : "index.html";
   }
 
+  // Tap-to-pick chips instead of a <select>. A dropdown of twelve directions
+  // collapses to a native scroll wheel on mobile, which hides how much the app
+  // actually covers; chips show every direction at once and read in their own
+  // scripts. They stay behind a disclosure because this sits in the header of
+  // all 48 pages — twelve always-open chips would push the lesson content well
+  // below the fold. To have them always visible, drop the `hidden` line and the
+  // toggle listener below.
   function renderSwitcher() {
     var file = currentFile(), base = currentBase();
-    var sel = document.createElement("select");
-    sel.className = "lang-switcher";
-    sel.setAttribute("aria-label", "ভাষা / ಭಾಷೆ / ഭാഷ");
+    var current = null;
+    DIRECTIONS.forEach(function (d) { if (d.base === base) current = d; });
+    if (!current) current = DIRECTIONS[0];
+
+    var wrap = document.createElement("div");
+    wrap.className = "lang-switcher-wrap";
+
+    var toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "lang-switcher-current";
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "ভাষা / ಭಾಷೆ / ഭാഷ");
+    toggle.innerHTML = '<span class="lsc-label"></span><span class="lsc-chev" aria-hidden="true">▾</span>';
+    var lbl = toggle.querySelector(".lsc-label");
+    lbl.textContent = current.label;
+    lbl.setAttribute("lang", current.lang);
+
+    var grid = document.createElement("div");
+    grid.className = "dir-chips";
+    grid.hidden = true;
+
     DIRECTIONS.forEach(function (d) {
-      var o = document.createElement("option");
-      o.value = d.base + file;
-      o.textContent = d.label;
-      o.setAttribute("lang", d.lang);
-      if (d.base === base) o.selected = true;
-      sel.appendChild(o);
+      // Real anchors, not buttons: these are navigations, so they should be
+      // middle-clickable and crawlable — something the old <select> never was.
+      var chip = document.createElement("a");
+      chip.className = "dir-chip" + (d.base === base ? " selected" : "");
+      chip.href = d.base + file;
+      chip.textContent = d.label;
+      chip.setAttribute("lang", d.lang);
+      if (d.base === base) chip.setAttribute("aria-current", "page");
+      grid.appendChild(chip);
     });
-    sel.addEventListener("change", function () {
-      if (sel.value) location.href = sel.value;
+
+    toggle.addEventListener("click", function () {
+      var open = grid.hidden;
+      grid.hidden = !open;
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      wrap.classList.toggle("open", open);
     });
+
+    wrap.appendChild(toggle);
+    wrap.appendChild(grid);
+
     // Replace the static switcher pill if present, otherwise add to the header.
     var old = document.querySelector(".switcher");
-    if (old) { old.parentNode.replaceChild(sel, old); return; }
+    if (old) { old.parentNode.replaceChild(wrap, old); return; }
     var header = document.querySelector("header");
-    if (header) header.appendChild(sel);
+    if (header) header.appendChild(wrap);
   }
 
   /* ---------- Home ---------- */
