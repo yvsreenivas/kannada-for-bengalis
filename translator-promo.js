@@ -5,7 +5,7 @@
 // learning Bengali and to a Bengali speaker learning Kannada.
 function renderTranslatorPromo() {
   return `
-    <a class="translator-promo" href="https://kannada-translator.vercel.app/" target="_blank" rel="noopener noreferrer">
+    <a class="translator-promo" href="https://kannadatranslate.xyz/" target="_blank" rel="noopener noreferrer">
       <span class="translator-promo-icon" aria-hidden="true">🗣️</span>
       <span class="translator-promo-text">
         <span class="translator-promo-title">ಕನ್ನಡ ಅನುವಾದಕ</span>
