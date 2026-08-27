@@ -17,8 +17,11 @@
   html, body { height: 100%; }
   body {
     font-family: system-ui, "Segoe UI", Roboto, sans-serif;
-    background: linear-gradient(135deg, #131f24 0%, #1b3a1e 100%);
-    color: #fff;
+    background:
+      radial-gradient(circle at 12% 8%, #fff3d6 0 22%, transparent 22.5%),
+      radial-gradient(circle at 88% 4%, #dff0ec 0 18%, transparent 18.5%),
+      #fdf7ec;
+    color: #2b2317;
     min-height: 100%;
     display: flex; align-items: center; justify-content: center;
     text-align: center;
@@ -32,27 +35,28 @@
     animation: glow 2.4s ease-in-out infinite;
   }
   @keyframes glow {
-    0%, 100% { transform: translateY(0) scale(1);   filter: drop-shadow(0 0 10px rgba(88,204,2,.35)); }
-    50%      { transform: translateY(-6px) scale(1.05); filter: drop-shadow(0 0 26px rgba(88,204,2,.7)); }
+    0%, 100% { transform: translateY(0) scale(1) rotate(-3deg);      filter: drop-shadow(0 0 10px rgba(224,144,47,.35)); }
+    50%      { transform: translateY(-6px) scale(1.05) rotate(3deg); filter: drop-shadow(0 0 26px rgba(224,144,47,.7)); }
   }
-  .brand { font-size: 34px; font-weight: 800; margin-top: 10px; letter-spacing: -.5px; }
+  .brand { font-size: 34px; font-weight: 800; margin-top: 10px; letter-spacing: -.5px; color: #1f6f68; }
   h1 {
     font-size: 30px; font-weight: 800; line-height: 1.2;
     margin-top: 26px;
   }
-  h1 .hi { color: #7ee83f; }
+  h1 .hi { color: #a83c31; }
   p.msg {
-    font-size: 17px; color: #9db2bd; line-height: 1.55;
+    font-size: 17px; color: #6a6152; line-height: 1.55;
     margin-top: 14px;
   }
   .divider {
-    width: 64px; height: 4px; border-radius: 999px;
-    background: #58cc02; margin: 28px auto 24px;
-    opacity: .9;
+    width: 64px; height: 5px; border-radius: 999px;
+    background: #e0902f; margin: 28px auto 24px;
   }
   .langs {
-    display: flex; flex-direction: column; gap: 10px;
-    font-size: 18px; color: #d7ffb8; font-weight: 600;
+    display: inline-flex; flex-direction: column; gap: 10px;
+    font-size: 18px; color: #1f6f68; font-weight: 600;
+    background: #dff0ec; border: 3px solid #297e76; border-radius: 18px;
+    padding: 16px 22px;
   }
   .langs span { line-height: 1.4; }
   .l-bn { font-family: "Noto Sans Bengali", system-ui, sans-serif; }
@@ -61,9 +65,9 @@
   .l-kok{ font-family: "Noto Sans Devanagari", system-ui, sans-serif; }
   .foot {
     margin-top: 34px; font-size: 14px; letter-spacing: 3px;
-    text-transform: uppercase; color: #6b8390;
+    text-transform: uppercase; color: #6a6152;
   }
-  .foot a { color: #58cc02; text-decoration: none; font-weight: 700; }
+  .foot a { color: #a83c31; text-decoration: none; font-weight: 700; }
 </style>
 </head>
 <body>
