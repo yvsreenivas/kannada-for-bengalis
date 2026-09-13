@@ -378,7 +378,19 @@ nav.bottom a.active {
 .book-name { font-weight: 600; font-size: .95rem; }
 .book-author { font-size: .8rem; color: var(--muted); }
 .books-header-exams { margin-top: 16px; padding-top: 12px; border-top: 2px solid var(--divider); }
-.blog-promo-link { display: block; margin-bottom: 6px; color: var(--indigo-ink); text-decoration: none; font-weight: 600; }
+.blog-promo {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--saffron-l);
+  border: 3px solid var(--saffron); border-radius: var(--radius);
+  padding: 14px 16px; margin: 4px 0 14px; text-decoration: none; color: var(--saffron-ink);
+  transition: transform .12s;
+}
+.blog-promo:hover { transform: translateX(3px); }
+.blog-promo-icon { font-size: 1.4rem; }
+.blog-promo-text { display: flex; flex-direction: column; gap: 2px; }
+.blog-promo-title { font-weight: 700; font-size: .95rem; color: var(--saffron-ink); }
+.blog-promo-sub { font-size: .8rem; color: var(--muted); }
+.blog-promo-arrow { margin-left: auto; font-weight: 700; color: var(--saffron-ink); }
 
 /* Blog */
 .back-link { display: inline-block; margin: 8px 0; color: var(--indigo-ink); text-decoration: none; font-size: .9rem; }

@@ -330,8 +330,15 @@ function renderBooksSidebar() {
 
   html += `
       </ul>
+      <a class="blog-promo" href="/blog/" lang="en">
+        <span class="blog-promo-icon" aria-hidden="true">💼</span>
+        <span class="blog-promo-text">
+          <span class="blog-promo-title">Small business ideas for young workers</span>
+          <span class="blog-promo-sub">Tea stalls, tailoring, tiffin service &amp; more</span>
+        </span>
+        <span class="blog-promo-arrow" aria-hidden="true">→</span>
+      </a>
       <div class="books-footer">
-        <a href="/blog/" class="blog-promo-link" lang="en">💼 Small business ideas for young workers →</a>
         <span class="affiliate-note">Amazon affiliate links</span>
       </div>
     </aside>
