@@ -382,7 +382,7 @@ nav.bottom a.active {
   display: flex; align-items: center; gap: 12px;
   background: var(--saffron-l);
   border: 3px solid var(--saffron); border-radius: var(--radius);
-  padding: 14px 16px; margin: 4px 0 14px; text-decoration: none; color: var(--saffron-ink);
+  padding: 14px 16px; margin: 16px 0; text-decoration: none; color: var(--saffron-ink);
   transition: transform .12s;
 }
 .blog-promo:hover { transform: translateX(3px); }
