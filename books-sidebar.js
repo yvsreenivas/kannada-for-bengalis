@@ -9,12 +9,12 @@ const BOOKS_DATA = {
       {
         title: 'Spoken Kannada for Absolute Beginners',
         author: 'Sanjay D',
-        url: 'https://www.amazon.in/s?k=Spoken+Kannada+Absolute+Beginners+Sanjay&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       },
       {
         title: 'Learn Kannada In 30 Days Through English',
         author: 'Krishna Gopal Vikal',
-        url: 'https://www.amazon.in/s?k=Learn+Kannada+30+Days+Through+English&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       }
     ]
   },
@@ -28,12 +28,12 @@ const BOOKS_DATA = {
       {
         title: 'Complete Bengali Beginner to Intermediate Course',
         author: 'William Radice',
-        url: 'https://www.amazon.in/s?k=Complete+Bengali+Beginner+Intermediate+Course&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       },
       {
         title: 'Learning Bengali Alphabet for English Speakers',
         author: 'Various',
-        url: 'https://www.amazon.in/s?k=Learning+Bengali+Alphabet+English&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       }
     ]
   },
@@ -47,12 +47,12 @@ const BOOKS_DATA = {
       {
         title: 'Learn Basic Malayalam In Six Weeks',
         author: 'John D. Kunnathu & Lissy J. Kunnathu',
-        url: 'https://www.amazon.in/s?k=Learn+Basic+Malayalam+Six+Weeks&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       },
       {
         title: 'Malayalam Learning Reading Writing and Colouring Books',
         author: 'InIkao',
-        url: 'https://www.amazon.in/s?k=Malayalam+Learning+Reading+Writing+Colouring&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       }
     ]
   },
@@ -66,12 +66,12 @@ const BOOKS_DATA = {
       {
         title: 'Spoken Kannada for Absolute Beginners',
         author: 'Sanjay D',
-        url: 'https://www.amazon.in/s?k=Spoken+Kannada+Absolute+Beginners+Sanjay&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       },
       {
         title: 'Learn Kannada In 30 Days Through English',
         author: 'Krishna Gopal Vikal',
-        url: 'https://www.amazon.in/s?k=Learn+Kannada+30+Days+Through+English&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       }
     ]
   },
@@ -85,12 +85,12 @@ const BOOKS_DATA = {
       {
         title: 'Lets Learn Konkani',
         author: 'S.J. Borkar',
-        url: 'https://www.amazon.in/s?k=Lets+Learn+Konkani+Borkar&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       },
       {
         title: 'Learn Konkani for Beginners',
         author: 'Ahmet Neseli',
-        url: 'https://www.amazon.in/s?k=Learn+Konkani+Beginners+Ahmet+Neseli&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       }
     ]
   },
@@ -104,12 +104,12 @@ const BOOKS_DATA = {
       {
         title: 'Teach Yourself Gujarati',
         author: 'Jagdish Dave & Kamal Dave',
-        url: 'https://www.amazon.in/s?k=Teach+Yourself+Gujarati+Jagdish+Dave&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       },
       {
         title: 'Learn Gujarati In 30 Days Through English',
         author: 'Krishna Gopal Vikal',
-        url: 'https://www.amazon.in/s?k=Learn+Gujarati+30+Days+Through+English&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       }
     ]
   },
@@ -123,12 +123,12 @@ const BOOKS_DATA = {
       {
         title: 'Spoken Kannada for Absolute Beginners',
         author: 'Sanjay D',
-        url: 'https://www.amazon.in/s?k=Spoken+Kannada+Absolute+Beginners+Sanjay&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       },
       {
         title: 'Learn Kannada In 30 Days Through English',
         author: 'Krishna Gopal Vikal',
-        url: 'https://www.amazon.in/s?k=Learn+Kannada+30+Days+Through+English&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       }
     ]
   },
@@ -142,12 +142,12 @@ const BOOKS_DATA = {
       {
         title: 'Learn Tamil in 30 Days Through English',
         author: 'K. Thirunavukkarasu',
-        url: 'https://www.amazon.in/s?k=Learn+Tamil+30+Days+Through+English&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       },
       {
         title: 'Tamil Script Made Easy',
         author: 'Nivetha Mohan',
-        url: 'https://www.amazon.in/s?k=Tamil+Script+Made+Easy&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       }
     ]
   },
@@ -161,12 +161,12 @@ const BOOKS_DATA = {
       {
         title: 'Spoken Kannada for Absolute Beginners',
         author: 'Sanjay D',
-        url: 'https://www.amazon.in/s?k=Spoken+Kannada+Absolute+Beginners+Sanjay&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       },
       {
         title: 'Learn Kannada In 30 Days Through English',
         author: 'Krishna Gopal Vikal',
-        url: 'https://www.amazon.in/s?k=Learn+Kannada+30+Days+Through+English&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       }
     ]
   },
@@ -180,12 +180,12 @@ const BOOKS_DATA = {
       {
         title: 'Learn Odia Language Quickly',
         author: 'Tarun Kumar Panda',
-        url: 'https://www.amazon.in/s?k=Learn+Odia+Language+Quickly+Tarun+Panda&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       },
       {
         title: 'Spoken Odia for Everyone',
         author: 'Various',
-        url: 'https://www.amazon.in/s?k=Spoken+Odia+for+Everyone&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       }
     ]
   },
@@ -199,12 +199,12 @@ const BOOKS_DATA = {
       {
         title: 'Spoken Kannada for Absolute Beginners',
         author: 'Sanjay D',
-        url: 'https://www.amazon.in/s?k=Spoken+Kannada+Absolute+Beginners+Sanjay&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       },
       {
         title: 'Learn Kannada In 30 Days Through English',
         author: 'Krishna Gopal Vikal',
-        url: 'https://www.amazon.in/s?k=Learn+Kannada+30+Days+Through+English&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       }
     ]
   },
@@ -218,12 +218,12 @@ const BOOKS_DATA = {
       {
         title: 'Spoken Kannada for Absolute Beginners',
         author: 'Sanjay D',
-        url: 'https://www.amazon.in/s?k=Spoken+Kannada+Absolute+Beginners+Sanjay&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       },
       {
         title: 'Learn Kannada In 30 Days Through English',
         author: 'Krishna Gopal Vikal',
-        url: 'https://www.amazon.in/s?k=Learn+Kannada+30+Days+Through+English&tag=kannadawordle-21'
+        url: 'https://link.amazon/B0fKCcGun'
       }
     ]
   }
@@ -238,32 +238,32 @@ const EXAM_BOOKS = {
     {
       title: "Lucent's General Knowledge",
       author: 'Dr. Binay Karna',
-      url: 'https://www.amazon.in/s?k=Lucent+General+Knowledge&tag=kannadawordle-21'
+      url: 'https://link.amazon/B0fKCcGun'
     },
     {
       title: 'Quantitative Aptitude for Competitive Examinations',
       author: 'R.S. Aggarwal',
-      url: 'https://www.amazon.in/s?k=Quantitative+Aptitude+Competitive+Examinations+Aggarwal&tag=kannadawordle-21'
+      url: 'https://link.amazon/B0fKCcGun'
     },
     {
       title: 'SSC GD Constable Exam Guide',
       author: 'Arihant Experts',
-      url: 'https://www.amazon.in/s?k=SSC+GD+Constable+Exam+Guide+Arihant&tag=kannadawordle-21'
+      url: 'https://link.amazon/B0fKCcGun'
     },
     {
       title: 'RRB Group D Level 1 Exam Guide',
       author: 'Disha Experts',
-      url: 'https://www.amazon.in/s?k=RRB+Group+D+Level+1+Exam+Guide&tag=kannadawordle-21'
+      url: 'https://link.amazon/B0fKCcGun'
     },
     {
       title: 'General Knowledge 2026: One-Liner GK & Current Affairs Question Bank for SSC, Banking, Railways & All Competitive Exams',
       author: 'Sreenivash Venkatesh',
-      url: 'https://amzn.in/d/0cVroV21'
+      url: 'https://link.amazon/B0fKCcGun'
     },
     {
       title: 'General Knowledge 2026 — Hindi Edition: One-Liner GK & Current Affairs for Competitive Exams (सामान्य ज्ञान 2026)',
       author: 'Sreenivash Venkatesh',
-      url: 'https://amzn.in/d/0jb2qitl'
+      url: 'https://link.amazon/B0fKCcGun'
     }
   ]
 };
